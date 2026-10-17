@@ -60,9 +60,11 @@ class DrugDataClient:
         if not clean_name:
             return None
 
+        # Fixed Search Functionality: Broadened to check generic, then brand, then active ingredient
         queries = [
-            f'openfda.generic_name.exact:"{clean_name.upper()}"+openfda.brand_name.exact:"{clean_name.upper()}"',
-            f'openfda.generic_name:"{clean_name}"+openfda.brand_name:"{clean_name}"'
+            f'openfda.generic_name:"{clean_name}"',
+            f'openfda.brand_name:"{clean_name}"',
+            f'active_ingredient:"{clean_name}"'
         ]
 
         for query in queries:
@@ -75,7 +77,6 @@ class DrugDataClient:
                         return DrugDataClient._parse_label_data(data["results"][0])
             except requests.RequestException:
                 continue
-
         return None
 
     @staticmethod
@@ -418,6 +419,21 @@ class IndicationDosingEngine:
             "Skin/Soft Tissue Infection (Cellulitis/Impetigo)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_daily": 2000.0, "conc_mg": 250, "conc_ml": 5},
             "Streptococcal Pharyngitis (Penicillin Allergy)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_daily": 1000.0, "conc_mg": 250, "conc_ml": 5}
         },
+        "Clindamycin": {
+            "Skin/Soft Tissue Infection (MRSA Suspected)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_daily": 1800.0, "conc_mg": 75, "conc_ml": 5},
+            "Dental Infection": {"dose_mg_kg_day": 20.0, "freq": 3, "max_daily": 1800.0, "conc_mg": 75, "conc_ml": 5}
+        },
+        "Sulfamethoxazole-Trimethoprim (SMX-TMP)": {
+            "Urinary Tract Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_daily": 320.0, "conc_mg": 40, "conc_ml": 5},
+            "MRSA Skin Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_daily": 320.0, "conc_mg": 40, "conc_ml": 5}
+        },
+        "Penicillin V Potassium": {
+            "Streptococcal Pharyngitis (Strep Throat)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_daily": 1000.0, "conc_mg": 250, "conc_ml": 5}
+        },
+        "Azithromycin": {
+            "Community-Acquired Pneumonia / Bronchitis (Day 1)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_daily": 500.0, "conc_mg": 200, "conc_ml": 5},
+            "Pharyngitis / Tonsillitis (Alternative)": {"dose_mg_kg_day": 12.0, "freq": 1, "max_daily": 500.0, "conc_mg": 200, "conc_ml": 5}
+        },
         "Ibuprofen": {
             "Fever / Mild-to-Moderate Pain": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 400.0, "max_daily": 1200.0, "conc_mg": 100, "conc_ml": 5},
             "Inflammatory Pain / Juvenile Arthritis": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 600.0, "max_daily": 2400.0, "conc_mg": 100, "conc_ml": 5}
@@ -425,9 +441,24 @@ class IndicationDosingEngine:
         "Acetaminophen (Paracetamol)": {
             "Fever / Pain Management": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0, "conc_mg": 160, "conc_ml": 5}
         },
-        "Azithromycin": {
-            "Community-Acquired Pneumonia / Bronchitis (Day 1)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_daily": 500.0, "conc_mg": 200, "conc_ml": 5},
-            "Pharyngitis / Tonsillitis (Alternative)": {"dose_mg_kg_day": 12.0, "freq": 1, "max_daily": 500.0, "conc_mg": 200, "conc_ml": 5}
+        "Diphenhydramine (Benadryl)": {
+            "Allergic Reaction / Urticaria": {"dose_mg_kg_dose": 1.25, "freq": 4, "max_single": 50.0, "max_daily": 300.0, "conc_mg": 12.5, "conc_ml": 5}
+        },
+        "Cetirizine (Zyrtec)": {
+            "Allergic Rhinitis (Fixed Dose: 6mo - 2yrs)": {"fixed_dose_mg": 2.5, "freq": 1, "max_single": 2.5, "max_daily": 2.5, "conc_mg": 5, "conc_ml": 5},
+            "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0, "conc_mg": 5, "conc_ml": 5},
+            "Allergic Rhinitis (Fixed Dose: 6+ yrs)": {"fixed_dose_mg": 10.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0, "conc_mg": 5, "conc_ml": 5}
+        },
+        "Prednisolone": {
+            "Asthma Exacerbation": {"dose_mg_kg_day": 2.0, "freq": 1, "max_daily": 60.0, "conc_mg": 15, "conc_ml": 5},
+            "Croup": {"dose_mg_kg_dose": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0, "conc_mg": 15, "conc_ml": 5}
+        },
+        "Dexamethasone": {
+            "Croup (Single Dose)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0, "conc_mg": 0.5, "conc_ml": 5},
+            "Asthma Exacerbation (Day 1 of 2)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0, "conc_mg": 0.5, "conc_ml": 5}
+        },
+        "Ondansetron (Zofran)": {
+            "Nausea/Vomiting (Weight-Based Protocol)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0, "conc_mg": 4, "conc_ml": 5}
         }
     }
 
@@ -443,7 +474,11 @@ class IndicationDosingEngine:
         max_single = rule.get("max_single", 0.0)
         max_daily = rule.get("max_daily", 0.0)
 
-        if "dose_mg_kg_day" in rule:
+        # Upgraded Engine: Handles fixed flat dosing alongside weight-based logic
+        if "fixed_dose_mg" in rule:
+            raw_single = rule["fixed_dose_mg"]
+            raw_daily = raw_single * freq
+        elif "dose_mg_kg_day" in rule:
             raw_daily = weight_kg * rule["dose_mg_kg_day"]
             raw_single = raw_daily / freq
         else:
@@ -724,7 +759,7 @@ def main():
             pt_meta_str = st.text_input("Age / Sex", value="5 yrs / Male")
         with col_meta2:
             pt_anthro_str = st.text_input("Weight Summary", value="18.0 kg")
-            clinician = st.text_input("Clinician Name", value="Clinical Pharmacist")
+            clinician = st.text_input("Clinician Name", value="Clinician")
         notes = st.text_area("Notes", value="Verified indication-driven dosing.")
 
         html_out = ClinicalReportGenerator.generate_html_report(
