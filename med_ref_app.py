@@ -406,6 +406,18 @@ class IndicationDosingEngine:
             "Streptococcal Pharyngitis (Strep Throat)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_daily": 1000.0, "conc_mg": 250, "conc_ml": 5},
             "Acute Sinusitis": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 2000.0, "conc_mg": 400, "conc_ml": 5}
         },
+        "Amoxicillin-Clavulanate": {
+            "Acute Otitis Media (Severe / Amox Failure)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0, "conc_mg": 600, "conc_ml": 5},
+            "Acute Sinusitis (Severe)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0, "conc_mg": 600, "conc_ml": 5}
+        },
+        "Cefdinir": {
+            "Acute Otitis Media (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0, "conc_mg": 250, "conc_ml": 5},
+            "Acute Sinusitis (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0, "conc_mg": 250, "conc_ml": 5}
+        },
+        "Cephalexin": {
+            "Skin/Soft Tissue Infection (Cellulitis/Impetigo)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_daily": 2000.0, "conc_mg": 250, "conc_ml": 5},
+            "Streptococcal Pharyngitis (Penicillin Allergy)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_daily": 1000.0, "conc_mg": 250, "conc_ml": 5}
+        },
         "Ibuprofen": {
             "Fever / Mild-to-Moderate Pain": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 400.0, "max_daily": 1200.0, "conc_mg": 100, "conc_ml": 5},
             "Inflammatory Pain / Juvenile Arthritis": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 600.0, "max_daily": 2400.0, "conc_mg": 100, "conc_ml": 5}
