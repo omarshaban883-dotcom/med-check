@@ -11,7 +11,7 @@ st.set_page_config(
     page_title="Clinical Indication-Driven Dosing & Interaction System",
     page_icon="💊",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 st.markdown("""
@@ -915,16 +915,6 @@ class ClinicalReportGenerator:
 def main():
     st.title("💊 Clinical Indication-Driven Dosing System")
     
-    with st.sidebar:
-        st.header("🔍 Single Drug Lookup")
-        search_query = st.text_input("Enter Generic or Brand Name", value="Amoxicillin")
-        search_btn = st.button("Pull Drug Monograph", type="primary", use_container_width=True)
-
-    if "drug_data" not in st.session_state or search_btn:
-        with st.spinner(f"Querying OpenFDA database for '{search_query}'..."):
-            st.session_state.drug_data = DrugDataClient.fetch_drug_label(search_query)
-            st.session_state.last_query = search_query
-
     tab_dosing, tab_monograph, tab_interactions, tab_report = st.tabs([
         "🎯 Indication Dosing",
         "📄 FDA Monograph",
@@ -1020,14 +1010,26 @@ def main():
                     }
                     st.session_state.latest_indication = selected_diagnosis
 
+            # AUTO-FETCH FDA MONOGRAPH BASED ON DROPDOWN SELECTION
+            api_search_term = selected_drug.split(" (")[0]
+            if st.session_state.get("last_fetched_drug") != selected_drug:
+                with st.spinner(f"Auto-fetching FDA Monograph for {api_search_term}..."):
+                    st.session_state.drug_data = DrugDataClient.fetch_drug_label(api_search_term)
+                    st.session_state.last_fetched_drug = selected_drug
+
     with tab_monograph:
         data = st.session_state.get("drug_data")
         if not data:
-            st.error("No monograph loaded.")
+            st.warning(f"No FDA Monograph found in the OpenFDA database for '{api_search_term}'.")
         else:
             st.subheader(data['generic_name'].title())
             st.write(data['indications'])
             if data['boxed_warning']: st.markdown(f'<div class="boxed-warning"><h4>🛑 Boxed Warning</h4>{data["boxed_warning"][:1000]}</div>', unsafe_allow_html=True)
+            with st.expander("Dosage & Administration Guidelines"):
+                st.write(data['dosage_and_admin'])
+            with st.expander("Contraindications & Warnings"):
+                st.write(data['contraindications'])
+                st.write(data['warnings'])
 
     with tab_interactions:
         st.subheader("⚡ Pairwise Interaction Checker")
