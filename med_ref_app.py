@@ -60,7 +60,6 @@ class DrugDataClient:
         if not clean_name:
             return None
 
-        # Fixed Search Functionality: Broadened to check generic, then brand, then active ingredient
         queries = [
             f'openfda.generic_name:"{clean_name}"',
             f'openfda.brand_name:"{clean_name}"',
@@ -145,51 +144,51 @@ class PairwiseInteractionEngine:
     CURATED_CLINICAL_RULES = [
         {
             "group_a": ["warfarin", "apixaban", "rivaroxaban", "dabigatran"],
-            "group_b": ["ibuprofen", "naproxen", "diclofenac", "ketorolac", "meloxicam", "aspirin"],
+            "group_b": ["ibuprofen", "naproxen", "diclofenac", "ketorolac", "meloxicam", "aspirin", "ciprofloxacin", "clarithromycin", "sulfamethoxazole", "trimethoprim"],
             "severity": "Major / High Risk",
-            "summary": "Increased risk of serious gastrointestinal and systemic bleeding due to additive antiplatelet/mucosal effects with anticoagulation."
+            "summary": "Increased risk of serious bleeding due to pharmacokinetic enzyme inhibition or mucosal injury."
         },
         {
             "group_a": ["sildenafil", "tadalafil", "vardenafil"],
             "group_b": ["nitroglycerin", "isosorbide mononitrate", "isosorbide dinitrate"],
             "severity": "Contraindicated",
-            "summary": "Synergistic vasodilation via the nitric oxide-cGMP pathway can cause profound, life-threatening hypotension."
+            "summary": "Synergistic vasodilation via nitric oxide-cGMP causes profound, life-threatening hypotension."
         },
         {
             "group_a": ["simvastatin", "lovastatin", "atorvastatin"],
             "group_b": ["clarithromycin", "erythromycin", "itraconazole", "ketoconazole", "gemfibrozil"],
             "severity": "Contraindicated / Major",
-            "summary": "Potent CYP3A4/OATP1B1 inhibition markedly elevates statin plasma concentrations, increasing the risk of myopathy and rhabdomyolysis."
+            "summary": "Potent CYP3A4/OATP1B1 inhibition markedly elevates statin concentrations, risking rhabdomyolysis."
         },
         {
             "group_a": ["lisinopril", "enalapril", "ramipril", "losartan", "valsartan"],
-            "group_b": ["spironolactone", "eplerenone", "amiloride", "triamterene", "potassium chloride"],
+            "group_b": ["spironolactone", "eplerenone", "amiloride", "triamterene", "potassium chloride", "trimethoprim"],
             "severity": "Major / Monitor Closely",
-            "summary": "Additive hyperkalemic effects. Concurrent use increases the risk of severe, potentially fatal hyperkalemia, especially in renal impairment."
+            "summary": "Additive hyperkalemic effects. Concurrent use elevates risk of severe hyperkalemia."
         },
         {
             "group_a": ["fluoxetine", "sertraline", "paroxetine", "citalopram", "escitalopram", "venlafaxine", "duloxetine"],
             "group_b": ["phenelzine", "tranylcypromine", "selegiline", "linezolid", "tramadol", "sumatriptan"],
             "severity": "Major / Serotonin Syndrome Risk",
-            "summary": "Concurrent serotonergic agents significantly elevate the risk of serotonin syndrome (hyperthermia, autonomic instability, neuromuscular clonus)."
+            "summary": "Concurrent serotonergic agents significantly elevate risk of fatal serotonin syndrome."
         },
         {
             "group_a": ["morphine", "oxycodone", "hydrocodone", "fentanyl", "methadone", "tramadol"],
             "group_b": ["alprazolam", "lorazepam", "diazepam", "clonazepam", "zolpidem"],
             "severity": "Major (Boxed Warning)",
-            "summary": "Concomitant use of opioids with benzodiazepines or CNS depressants may result in profound sedation, respiratory depression, coma, and death."
+            "summary": "Concomitant use may result in profound sedation, respiratory depression, coma, and death."
         },
         {
             "group_a": ["methotrexate"],
-            "group_b": ["amoxicillin", "penicillin", "piperacillin", "ibuprofen", "naproxen", "trimethoprim", "sulfamethoxazole"],
+            "group_b": ["amoxicillin", "penicillin", "ampicillin", "piperacillin", "ibuprofen", "naproxen", "trimethoprim", "sulfamethoxazole"],
             "severity": "Major",
-            "summary": "Reduced renal tubular secretion or additive folate antagonism can lead to severe methotrexate toxicity (myelosuppression, mucositis)."
+            "summary": "Reduced renal tubular clearance or additive folate antagonism causes severe methotrexate toxicity."
         },
         {
-            "group_a": ["digoxin"],
-            "group_b": ["amiodarone", "verapamil", "diltiazem", "clarithromycin", "spironolactone"],
-            "severity": "Major",
-            "summary": "P-glycoprotein inhibition or reduced renal clearance increases serum digoxin levels by 50–100%, predisposing to digitalis toxicity and arrhythmias."
+            "group_a": ["ciprofloxacin", "levofloxacin", "moxifloxacin"],
+            "group_b": ["theophylline", "tizanidine", "amiodarone"],
+            "severity": "Major / Contraindicated",
+            "summary": "QTc prolongation risk or profound CYP1A2 inhibition resulting in theophylline/tizanidine toxicity."
         }
     ]
 
@@ -402,79 +401,262 @@ class PediatricWeightValidator:
 class IndicationDosingEngine:
     GUIDELINES = {
         "Amoxicillin": {
-            "Acute Otitis Media (Standard Dose)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 1750.0, "conc_mg": 400, "conc_ml": 5},
-            "Acute Otitis Media (High Dose / Resistant S. pneumoniae)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0, "conc_mg": 400, "conc_ml": 5},
-            "Streptococcal Pharyngitis (Strep Throat)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_daily": 1000.0, "conc_mg": 250, "conc_ml": 5},
-            "Acute Sinusitis": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 2000.0, "conc_mg": 400, "conc_ml": 5}
+            "indications": {
+                "Acute Otitis Media (Standard Dose)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 1750.0},
+                "Acute Otitis Media (High Dose / Resistant S. pneumoniae)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
+                "Streptococcal Pharyngitis (Strep Throat)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_daily": 1000.0},
+                "Acute Bacterial Rhinosinusitis": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 2000.0},
+                "Community-Acquired Pneumonia (First-Line High Dose)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0}
+            },
+            "forms": {
+                "Oral Suspension 400 mg / 5 mL": {"type": "liquid", "conc_mg": 400, "conc_ml": 5},
+                "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
+                "Chewable Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"},
+                "Oral Capsule 500 mg": {"type": "solid", "strength_mg": 500, "unit": "capsule"},
+                "Oral Tablet 875 mg": {"type": "solid", "strength_mg": 875, "unit": "tablet"}
+            }
         },
-        "Amoxicillin-Clavulanate": {
-            "Acute Otitis Media (Severe / Amox Failure)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0, "conc_mg": 600, "conc_ml": 5},
-            "Acute Sinusitis (Severe)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0, "conc_mg": 600, "conc_ml": 5}
+        "Amoxicillin-Clavulanate (Augmentin)": {
+            "indications": {
+                "Acute Otitis Media (High Dose 14:1 / Amox Failure)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
+                "Acute Bacterial Rhinosinusitis (High Dose)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
+                "Acute Bacterial Rhinosinusitis (Standard Dose)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 1750.0},
+                "Bite Wounds (Human / Animal)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_daily": 1500.0},
+                "Recurrent Tonsillitis / Pharyngitis": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 1750.0}
+            },
+            "forms": {
+                "Oral Suspension 600 mg / 5 mL (Augmentin ES 14:1)": {"type": "liquid", "conc_mg": 600, "conc_ml": 5},
+                "Oral Suspension 400 mg / 5 mL (7:1)": {"type": "liquid", "conc_mg": 400, "conc_ml": 5},
+                "Oral Suspension 250 mg / 5 mL (4:1)": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Tablet 875/125 mg": {"type": "solid", "strength_mg": 875, "unit": "tablet"},
+                "Oral Tablet 500/125 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
+            }
         },
-        "Cefdinir": {
-            "Acute Otitis Media (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0, "conc_mg": 250, "conc_ml": 5},
-            "Acute Sinusitis (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0, "conc_mg": 250, "conc_ml": 5}
+        "Cefdinir (Omnicef)": {
+            "indications": {
+                "Acute Otitis Media (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0},
+                "Acute Bacterial Sinusitis": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0},
+                "Streptococcal Pharyngitis (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 1, "max_daily": 600.0}
+            },
+            "forms": {
+                "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
+                "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Capsule 300 mg": {"type": "solid", "strength_mg": 300, "unit": "capsule"}
+            }
         },
-        "Cephalexin": {
-            "Skin/Soft Tissue Infection (Cellulitis/Impetigo)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_daily": 2000.0, "conc_mg": 250, "conc_ml": 5},
-            "Streptococcal Pharyngitis (Penicillin Allergy)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_daily": 1000.0, "conc_mg": 250, "conc_ml": 5}
+        "Cephalexin (Keflex)": {
+            "indications": {
+                "Skin & Soft Tissue Infection (Cellulitis/Impetigo)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_daily": 2000.0},
+                "Streptococcal Pharyngitis (Penicillin Allergy)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_daily": 1000.0},
+                "Urinary Tract Infection (Mild/Uncomplicated)": {"dose_mg_kg_day": 50.0, "freq": 4, "max_daily": 2000.0}
+            },
+            "forms": {
+                "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
+                "Oral Capsule 250 mg": {"type": "solid", "strength_mg": 250, "unit": "capsule"},
+                "Oral Capsule 500 mg": {"type": "solid", "strength_mg": 500, "unit": "capsule"}
+            }
         },
-        "Clindamycin": {
-            "Skin/Soft Tissue Infection (MRSA Suspected)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_daily": 1800.0, "conc_mg": 75, "conc_ml": 5},
-            "Dental Infection": {"dose_mg_kg_day": 20.0, "freq": 3, "max_daily": 1800.0, "conc_mg": 75, "conc_ml": 5}
+        "Cefuroxime Axetil (Ceftin)": {
+            "indications": {
+                "Acute Otitis Media (Second-Line / Cephalosporin)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_daily": 1000.0},
+                "Acute Bacterial Sinusitis": {"dose_mg_kg_day": 30.0, "freq": 2, "max_daily": 1000.0},
+                "Lyme Disease (Early / Erythema Migrans)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_daily": 1000.0}
+            },
+            "forms": {
+                "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
+                "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"},
+                "Oral Tablet 500 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
+            }
         },
-        "Sulfamethoxazole-Trimethoprim (SMX-TMP)": {
-            "Urinary Tract Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_daily": 320.0, "conc_mg": 40, "conc_ml": 5},
-            "MRSA Skin Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_daily": 320.0, "conc_mg": 40, "conc_ml": 5}
+        "Cefixime (Suprax)": {
+            "indications": {
+                "Urinary Tract Infection (Uncomplicated)": {"dose_mg_kg_day": 8.0, "freq": 1, "max_daily": 400.0},
+                "Acute Otitis Media (Alternative Oral Third-Gen)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_daily": 400.0}
+            },
+            "forms": {
+                "Oral Suspension 100 mg / 5 mL": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
+                "Oral Suspension 200 mg / 5 mL": {"type": "liquid", "conc_mg": 200, "conc_ml": 5},
+                "Oral Capsule 400 mg": {"type": "solid", "strength_mg": 400, "unit": "capsule"}
+            }
         },
-        "Penicillin V Potassium": {
-            "Streptococcal Pharyngitis (Strep Throat)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_daily": 1000.0, "conc_mg": 250, "conc_ml": 5}
+        "Azithromycin (Zithromax)": {
+            "indications": {
+                "Community-Acquired Pneumonia / Pertussis (Day 1)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_daily": 500.0},
+                "Community-Acquired Pneumonia / Pertussis (Days 2-5)": {"dose_mg_kg_day": 5.0, "freq": 1, "max_daily": 250.0},
+                "Streptococcal Pharyngitis (5-Day Regimen Alternative)": {"dose_mg_kg_day": 12.0, "freq": 1, "max_daily": 500.0},
+                "Acute Otitis Media (3-Day Single Daily Regimen)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_daily": 500.0}
+            },
+            "forms": {
+                "Oral Suspension 200 mg / 5 mL": {"type": "liquid", "conc_mg": 200, "conc_ml": 5},
+                "Oral Suspension 100 mg / 5 mL": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
+                "Oral Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"},
+                "Oral Tablet 500 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
+            }
         },
-        "Azithromycin": {
-            "Community-Acquired Pneumonia / Bronchitis (Day 1)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_daily": 500.0, "conc_mg": 200, "conc_ml": 5},
-            "Pharyngitis / Tonsillitis (Alternative)": {"dose_mg_kg_day": 12.0, "freq": 1, "max_daily": 500.0, "conc_mg": 200, "conc_ml": 5}
+        "Clarithromycin (Biaxin)": {
+            "indications": {
+                "Community-Acquired Pneumonia / Atypical": {"dose_mg_kg_day": 15.0, "freq": 2, "max_daily": 1000.0},
+                "Streptococcal Pharyngitis (Macrolide Option)": {"dose_mg_kg_day": 15.0, "freq": 2, "max_daily": 1000.0},
+                "Acute Otitis Media (Alternative)": {"dose_mg_kg_day": 15.0, "freq": 2, "max_daily": 1000.0}
+            },
+            "forms": {
+                "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
+                "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"},
+                "Oral Tablet 500 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
+            }
+        },
+        "Clindamycin (Cleocin)": {
+            "indications": {
+                "Skin & Soft Tissue Infection (Community MRSA Suspected)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_daily": 1800.0},
+                "Severe Bone/Joint Infection (Osteomyelitis)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_daily": 2700.0},
+                "Odontogenic / Dental Infection": {"dose_mg_kg_day": 20.0, "freq": 3, "max_daily": 1800.0}
+            },
+            "forms": {
+                "Oral Solution 75 mg / 5 mL": {"type": "liquid", "conc_mg": 75, "conc_ml": 5},
+                "Oral Capsule 150 mg": {"type": "solid", "strength_mg": 150, "unit": "capsule"},
+                "Oral Capsule 300 mg": {"type": "solid", "strength_mg": 300, "unit": "capsule"}
+            }
+        },
+        "Sulfamethoxazole-Trimethoprim (Bactrim)": {
+            "indications": {
+                "Urinary Tract Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_daily": 320.0},
+                "Community MRSA Skin Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_daily": 320.0},
+                "Pneumocystis Jirovecii Prophylaxis (Dosed on TMP Component)": {"dose_mg_kg_day": 5.0, "freq": 2, "max_daily": 320.0}
+            },
+            "forms": {
+                "Oral Suspension (40 mg TMP / 200 mg SMX per 5 mL)": {"type": "liquid", "conc_mg": 40, "conc_ml": 5},
+                "Single Strength Tablet (80 mg TMP / 400 mg SMX)": {"type": "solid", "strength_mg": 80, "unit": "tablet"},
+                "Double Strength Tablet (160 mg TMP / 800 mg SMX)": {"type": "solid", "strength_mg": 160, "unit": "tablet"}
+            }
+        },
+        "Metronidazole (Flagyl)": {
+            "indications": {
+                "Giardiasis": {"dose_mg_kg_day": 15.0, "freq": 3, "max_daily": 750.0},
+                "Amebiasis (Intestinal/Extraintestinal)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_daily": 2250.0},
+                "Anaerobic Bacterial Infection": {"dose_mg_kg_day": 30.0, "freq": 3, "max_daily": 2000.0},
+                "C. difficile Infection (Mild-to-Moderate Alternative)": {"dose_mg_kg_day": 30.0, "freq": 4, "max_daily": 2000.0}
+            },
+            "forms": {
+                "Oral Suspension (Compounded / Standard) 200 mg / 5 mL": {"type": "liquid", "conc_mg": 200, "conc_ml": 5},
+                "Oral Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"},
+                "Oral Tablet 500 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
+            }
+        },
+        "Nitrofurantoin (Macrobid / Macrodantin)": {
+            "indications": {
+                "Acute Uncomplicated UTI (Treatment - Macrobid)": {"dose_mg_kg_day": 5.0, "freq": 2, "max_daily": 200.0},
+                "UTI Prophylaxis (Nightly)": {"dose_mg_kg_day": 2.0, "freq": 1, "max_daily": 100.0}
+            },
+            "forms": {
+                "Oral Suspension 25 mg / 5 mL": {"type": "liquid", "conc_mg": 25, "conc_ml": 5},
+                "Monohydrate/Macrocrystals Capsule 100 mg (Macrobid)": {"type": "solid", "strength_mg": 100, "unit": "capsule"},
+                "Macrocrystals Capsule 50 mg (Macrodantin)": {"type": "solid", "strength_mg": 50, "unit": "capsule"}
+            }
+        },
+        "Ciprofloxacin (Cipro)": {
+            "indications": {
+                "Complicated UTI / Pyelonephritis (Pediatric Second-Line)": {"dose_mg_kg_day": 20.0, "freq": 2, "max_daily": 1500.0},
+                "Inhalational Anthrax (Post-Exposure Prophylaxis)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_daily": 1000.0}
+            },
+            "forms": {
+                "Oral Suspension 250 mg / 5 mL (5%)": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Suspension 500 mg / 5 mL (10%)": {"type": "liquid", "conc_mg": 500, "conc_ml": 5},
+                "Oral Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"},
+                "Oral Tablet 500 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
+            }
+        },
+        "Doxycycline": {
+            "indications": {
+                "Lyme Disease / Early Tick-Borne Rickettsial Infection (< 45 kg)": {"dose_mg_kg_day": 4.4, "freq": 2, "max_daily": 200.0},
+                "Severe Tick-Borne Disease / Adult Weight (>= 45 kg)": {"fixed_dose_mg": 100.0, "freq": 2, "max_single": 100.0, "max_daily": 200.0}
+            },
+            "forms": {
+                "Oral Suspension 25 mg / 5 mL (Monohydrate)": {"type": "liquid", "conc_mg": 25, "conc_ml": 5},
+                "Oral Capsule 50 mg (Hyclate)": {"type": "solid", "strength_mg": 50, "unit": "capsule"},
+                "Oral Capsule 100 mg (Hyclate)": {"type": "solid", "strength_mg": 100, "unit": "capsule"},
+                "Oral Tablet 100 mg (Monohydrate)": {"type": "solid", "strength_mg": 100, "unit": "tablet"}
+            }
         },
         "Ibuprofen": {
-            "Fever / Mild-to-Moderate Pain": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 400.0, "max_daily": 1200.0, "conc_mg": 100, "conc_ml": 5},
-            "Inflammatory Pain / Juvenile Arthritis": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 600.0, "max_daily": 2400.0, "conc_mg": 100, "conc_ml": 5}
+            "indications": {
+                "Fever / Mild-to-Moderate Pain": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 400.0, "max_daily": 1200.0},
+                "Inflammatory Pain / Juvenile Idiopathic Arthritis": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 600.0, "max_daily": 2400.0}
+            },
+            "forms": {
+                "Infant Oral Drops 50 mg / 1.25 mL (40 mg/mL)": {"type": "liquid", "conc_mg": 50, "conc_ml": 1.25},
+                "Children's Oral Suspension 100 mg / 5 mL": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
+                "Chewable Tablet 100 mg": {"type": "solid", "strength_mg": 100, "unit": "tablet"},
+                "Oral Tablet 200 mg": {"type": "solid", "strength_mg": 200, "unit": "tablet"},
+                "Oral Tablet 400 mg": {"type": "solid", "strength_mg": 400, "unit": "tablet"}
+            }
         },
         "Acetaminophen (Paracetamol)": {
-            "Fever / Pain Management": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0, "conc_mg": 160, "conc_ml": 5}
-        },
-        "Diphenhydramine (Benadryl)": {
-            "Allergic Reaction / Urticaria": {"dose_mg_kg_dose": 1.25, "freq": 4, "max_single": 50.0, "max_daily": 300.0, "conc_mg": 12.5, "conc_ml": 5}
-        },
-        "Cetirizine (Zyrtec)": {
-            "Allergic Rhinitis (Fixed Dose: 6mo - 2yrs)": {"fixed_dose_mg": 2.5, "freq": 1, "max_single": 2.5, "max_daily": 2.5, "conc_mg": 5, "conc_ml": 5},
-            "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0, "conc_mg": 5, "conc_ml": 5},
-            "Allergic Rhinitis (Fixed Dose: 6+ yrs)": {"fixed_dose_mg": 10.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0, "conc_mg": 5, "conc_ml": 5}
+            "indications": {
+                "Fever / Pain Management (Standard Weight-Based)": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0}
+            },
+            "forms": {
+                "Oral Suspension 160 mg / 5 mL": {"type": "liquid", "conc_mg": 160, "conc_ml": 5},
+                "Infant Drops 80 mg / 0.8 mL (100 mg/mL)": {"type": "liquid", "conc_mg": 80, "conc_ml": 0.8},
+                "Rectal Suppository 120 mg": {"type": "solid", "strength_mg": 120, "unit": "suppository"},
+                "Rectal Suppository 250 mg": {"type": "solid", "strength_mg": 250, "unit": "suppository"},
+                "Chewable Tablet 160 mg": {"type": "solid", "strength_mg": 160, "unit": "tablet"},
+                "Oral Tablet 500 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
+            }
         },
         "Prednisolone": {
-            "Asthma Exacerbation": {"dose_mg_kg_day": 2.0, "freq": 1, "max_daily": 60.0, "conc_mg": 15, "conc_ml": 5},
-            "Croup": {"dose_mg_kg_dose": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0, "conc_mg": 15, "conc_ml": 5}
+            "indications": {
+                "Acute Asthma Exacerbation": {"dose_mg_kg_day": 2.0, "freq": 1, "max_daily": 60.0},
+                "Croup (Laryngotracheobronchitis)": {"dose_mg_kg_dose": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0}
+            },
+            "forms": {
+                "Oral Syrup 15 mg / 5 mL (Prelone / Orapred)": {"type": "liquid", "conc_mg": 15, "conc_ml": 5},
+                "Oral Solution 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Orally Disintegrating Tablet 15 mg": {"type": "solid", "strength_mg": 15, "unit": "tablet"},
+                "Orally Disintegrating Tablet 30 mg": {"type": "solid", "strength_mg": 30, "unit": "tablet"}
+            }
         },
         "Dexamethasone": {
-            "Croup (Single Dose)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0, "conc_mg": 0.5, "conc_ml": 5},
-            "Asthma Exacerbation (Day 1 of 2)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0, "conc_mg": 0.5, "conc_ml": 5}
+            "indications": {
+                "Croup (Single Dose Protocol)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0},
+                "Acute Asthma Exacerbation (2-Day Short Course)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0}
+            },
+            "forms": {
+                "Oral Liquid 0.5 mg / 5 mL": {"type": "liquid", "conc_mg": 0.5, "conc_ml": 5},
+                "Oral Intensol Solution 1 mg / 1 mL": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
+                "Oral Tablet 4 mg": {"type": "solid", "strength_mg": 4, "unit": "tablet"},
+                "Oral Tablet 0.5 mg": {"type": "solid", "strength_mg": 0.5, "unit": "tablet"}
+            }
         },
         "Ondansetron (Zofran)": {
-            "Nausea/Vomiting (Weight-Based Protocol)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0, "conc_mg": 4, "conc_ml": 5}
+            "indications": {
+                "Acute Gastroenteritis Dehydration / Vomiting": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0}
+            },
+            "forms": {
+                "Oral Solution 4 mg / 5 mL": {"type": "liquid", "conc_mg": 4, "conc_ml": 5},
+                "Orally Disintegrating Tablet (ODT) 4 mg": {"type": "solid", "strength_mg": 4, "unit": "tablet"},
+                "Orally Disintegrating Tablet (ODT) 8 mg": {"type": "solid", "strength_mg": 8, "unit": "tablet"},
+                "Oral Tablet 4 mg": {"type": "solid", "strength_mg": 4, "unit": "tablet"}
+            }
         }
     }
 
     @classmethod
-    def calculate_from_diagnosis(cls, drug: str, diagnosis: str, weight_kg: float) -> Dict[str, Any]:
-        rule = cls.GUIDELINES.get(drug, {}).get(diagnosis)
-        if not rule:
-            return {"error": "Selected indication guideline not found."}
+    def calculate_from_diagnosis(cls, drug: str, diagnosis: str, form_name: str, weight_kg: float) -> Dict[str, Any]:
+        drug_data = cls.GUIDELINES.get(drug, {})
+        rule = drug_data.get("indications", {}).get(diagnosis)
+        form = drug_data.get("forms", {}).get(form_name)
 
-        conc_mg = rule.get("conc_mg", 0)
-        conc_ml = rule.get("conc_ml", 1)
+        if not rule or not form:
+            return {"error": "Selected indication or dosage form not found."}
+
         freq = rule.get("freq", 2)
         max_single = rule.get("max_single", 0.0)
         max_daily = rule.get("max_daily", 0.0)
 
-        # Upgraded Engine: Handles fixed flat dosing alongside weight-based logic
         if "fixed_dose_mg" in rule:
             raw_single = rule["fixed_dose_mg"]
             raw_daily = raw_single * freq
@@ -490,29 +672,53 @@ class IndicationDosingEngine:
         alerts = []
 
         if max_single > 0 and final_single > max_single:
-            alerts.append(f"Calculated single dose ({raw_single:.1f} mg) capped at maximum single limit ({max_single:.1f} mg).")
+            alerts.append(f"Calculated single dose ({raw_single:.1f} mg) capped at guideline max single ceiling ({max_single:.1f} mg).")
             final_single = max_single
             final_daily = final_single * freq
 
         if max_daily > 0 and final_daily > max_daily:
-            alerts.append(f"Calculated daily dose ({final_daily:.1f} mg/day) capped at maximum daily limit ({max_daily:.1f} mg/day).")
+            alerts.append(f"Calculated daily dose ({final_daily:.1f} mg/day) capped at guideline max daily ceiling ({max_daily:.1f} mg/day).")
             final_daily = max_daily
             final_single = final_daily / freq
 
-        vol_single = (final_single / (conc_mg / conc_ml)) if conc_mg > 0 else 0.0
-        vol_daily = (final_daily / (conc_mg / conc_ml)) if conc_mg > 0 else 0.0
+        dose_unit_str = ""
+        form_calc_details = {}
+
+        if form["type"] == "liquid":
+            conc_mg = form["conc_mg"]
+            conc_ml = form["conc_ml"]
+            vol_single = final_single / (conc_mg / conc_ml)
+            vol_daily = final_daily / (conc_mg / conc_ml)
+            dose_unit_str = f"{vol_single:.2f} mL"
+            form_calc_details = {
+                "form_type": "liquid",
+                "vol_single": vol_single,
+                "vol_daily": vol_daily,
+                "conc_str": f"{conc_mg} mg / {conc_ml} mL"
+            }
+        else:
+            strength_mg = form["strength_mg"]
+            unit_label = form.get("unit", "unit")
+            count_single = final_single / strength_mg
+            count_daily = final_daily / strength_mg
+            dose_unit_str = f"{count_single:.2f} {unit_label}(s)"
+            form_calc_details = {
+                "form_type": "solid",
+                "count_single": count_single,
+                "count_daily": count_daily,
+                "strength_str": f"{strength_mg} mg per {unit_label}"
+            }
 
         return {
             "drug": drug,
             "diagnosis": diagnosis,
+            "form_name": form_name,
             "final_single_mg": final_single,
             "final_daily_mg": final_daily,
-            "volume_per_dose_ml": vol_single,
-            "volume_daily_ml": vol_daily,
+            "dose_unit_str": dose_unit_str,
+            "form_details": form_calc_details,
             "freq": freq,
             "interval_hours": round(24 / freq, 1),
-            "conc_mg": conc_mg,
-            "conc_ml": conc_ml,
             "alerts": alerts
         }
 
@@ -542,7 +748,7 @@ class ClinicalReportGenerator:
                 <div class="section-subtitle">Indication / Diagnosis Engine: {html.escape(dosing_summary.get('mode', 'Standard'))}</div>
                 {alerts_html}
                 <div class="two-col">
-                    <div><h4>Patient & Indication Parameters</h4><table class="data-table">{params_rows}</table></div>
+                    <div><h4>Patient & Formulation Parameters</h4><table class="data-table">{params_rows}</table></div>
                     <div><h4>Calculated Regimen</h4><table class="data-table">{metrics_rows}</table></div>
                 </div>
                 <div class="sig-box"><strong>Prescription Sig Summary:</strong><br/>{cls._md_bold_to_html(dosing_summary.get('sig_summary', ''))}</div>
@@ -693,18 +899,22 @@ def main():
             elif peds_validation["status"] == "warning":
                 for msg in peds_validation["messages"]: st.warning(msg)
 
-            st.markdown("#### 2. Indication Selection")
+            st.markdown("#### 2. Medication, Indication & Formulation")
             available_drugs = list(IndicationDosingEngine.GUIDELINES.keys())
             selected_drug = st.selectbox("Select Medication", available_drugs)
-            available_diagnoses = list(IndicationDosingEngine.GUIDELINES[selected_drug].keys())
+            
+            available_diagnoses = list(IndicationDosingEngine.GUIDELINES[selected_drug]["indications"].keys())
             selected_diagnosis = st.selectbox("Select Indication", available_diagnoses)
+
+            available_forms = list(IndicationDosingEngine.GUIDELINES[selected_drug]["forms"].keys())
+            selected_form = st.selectbox("Select Dosage Form / Strength", available_forms)
 
         with col_out:
             st.markdown("#### 3. Guideline Regimen")
             if not allow_calc:
                 st.info("🔒 Calculation paused due to weight plausibility warning. Check override box to proceed.")
             else:
-                res = IndicationDosingEngine.calculate_from_diagnosis(selected_drug, selected_diagnosis, weight_kg)
+                res = IndicationDosingEngine.calculate_from_diagnosis(selected_drug, selected_diagnosis, selected_form, weight_kg)
                 if "error" in res:
                     st.error(res["error"])
                 else:
@@ -713,18 +923,35 @@ def main():
                     r1.metric("Single Dose", f"{res['final_single_mg']:.1f} mg")
                     r2.metric("Total Daily Dose", f"{res['final_daily_mg']:.1f} mg/day")
 
-                    if res["volume_per_dose_ml"] > 0:
-                        v1, v2 = st.columns(2)
-                        v1.metric("Suspension Volume/Dose", f"{res['volume_per_dose_ml']:.2f} mL", f"Every {res['interval_hours']} hours")
-                        v2.metric("Total Daily Volume", f"{res['volume_daily_ml']:.2f} mL/day", f"Using {res['conc_mg']}mg/{res['conc_ml']}mL")
+                    fd = res["form_details"]
+                    f1, f2 = st.columns(2)
+                    if fd["form_type"] == "liquid":
+                        f1.metric("Liquid Volume / Dose", f"{fd['vol_single']:.2f} mL", f"Every {res['interval_hours']} hours")
+                        f2.metric("Total Daily Volume", f"{fd['vol_daily']:.2f} mL/day", f"{fd['conc_str']}")
+                        sig_form_desc = f"**{fd['vol_single']:.2f} mL** of {fd['conc_str']}"
+                    else:
+                        unit_lbl = selected_form.split()[-1]
+                        f1.metric("Form Units / Dose", f"{fd['count_single']:.2f} {unit_lbl}(s)", f"Every {res['interval_hours']} hours")
+                        f2.metric("Total Daily Units", f"{fd['count_daily']:.2f} {unit_lbl}(s)/day", f"{fd['strength_str']}")
+                        sig_form_desc = f"**{fd['count_single']:.2f} {unit_lbl}(s)** ({fd['strength_str']})"
 
-                    sig_summary = f"Administer **{res['final_single_mg']:.1f} mg** " + (f"(**{res['volume_per_dose_ml']:.1f} mL** of {res['conc_mg']}mg/{res['conc_ml']}mL suspension) " if res["volume_per_dose_ml"] > 0 else "") + f"every **{res['interval_hours']} hours** ({res['freq']}x daily) for **{selected_diagnosis}**."
+                    sig_summary = f"Administer **{res['final_single_mg']:.1f} mg** ({sig_form_desc}) every **{res['interval_hours']} hours** ({res['freq']}x daily) for **{selected_diagnosis}**."
                     st.info(f"**Prescription Sig Summary:**\n\n{sig_summary}")
 
                     st.session_state.latest_dosing = {
                         "mode": f"{selected_drug} Guideline Dosing",
-                        "parameters": {"Medication": selected_drug, "Indication": selected_diagnosis, "Patient Age": f"{age_val:g} {age_unit.lower()}", "Patient Weight": f"{weight_kg:.2f} kg"},
-                        "metrics": {"Single Dose": f"{res['final_single_mg']:.1f} mg", "Total Daily Dose": f"{res['final_daily_mg']:.1f} mg/day", "Volume per Dose": f"{res['volume_per_dose_ml']:.2f} mL" if res['volume_per_dose_ml'] > 0 else "N/A"},
+                        "parameters": {
+                            "Medication": selected_drug,
+                            "Indication": selected_diagnosis,
+                            "Dosage Form": selected_form,
+                            "Patient Age": f"{age_val:g} {age_unit.lower()}",
+                            "Patient Weight": f"{weight_kg:.2f} kg"
+                        },
+                        "metrics": {
+                            "Single Dose": f"{res['final_single_mg']:.1f} mg",
+                            "Total Daily Dose": f"{res['final_daily_mg']:.1f} mg/day",
+                            "Prescribed Amount / Dose": res["dose_unit_str"]
+                        },
                         "alerts": res["alerts"],
                         "sig_summary": sig_summary
                     }
