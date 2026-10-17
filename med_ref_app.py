@@ -177,13 +177,13 @@ class PairwiseInteractionEngine:
         },
         {
             "group_a": ["morphine", "oxycodone", "hydrocodone", "fentanyl", "methadone", "tramadol"],
-            "group_b": ["alprazolam", "lorazepam", "diazepam", "clonazepam", "zolpidem", "promethazine"],
+            "group_b": ["alprazolam", "lorazepam", "diazepam", "clonazepam", "zolpidem", "promethazine", "ketotifen", "diphenhydramine"],
             "severity": "Major (Boxed Warning)",
             "summary": "Concomitant use may result in profound sedation, respiratory depression, coma, and death."
         },
         {
             "group_a": ["methotrexate"],
-            "group_b": ["amoxicillin", "penicillin", "ampicillin", "piperacillin", "ibuprofen", "naproxen", "trimethoprim", "sulfamethoxazole", "omeprazole", "pantoprazole"],
+            "group_b": ["amoxicillin", "penicillin", "ampicillin", "piperacillin", "cefixime", "cefaclor", "ibuprofen", "naproxen", "trimethoprim", "sulfamethoxazole", "omeprazole"],
             "severity": "Major",
             "summary": "Reduced renal tubular clearance or additive folate antagonism causes severe methotrexate toxicity."
         },
@@ -444,6 +444,42 @@ class IndicationDosingEngine:
                 "Do not substitute two 250 mg tablets for one 500 mg tablet (clavulanate toxicity risk)."
             ]
         },
+        "Cefixime (Suprax)": {
+            "category": "Antibiotics",
+            "indications": {
+                "Urinary Tract Infection (Uncomplicated)": {"dose_mg_kg_day": 8.0, "freq": 1, "max_daily": 400.0},
+                "Acute Otitis Media (Alternative Oral Third-Gen Daily)": {"dose_mg_kg_day": 8.0, "freq": 1, "max_daily": 400.0},
+                "Acute Otitis Media (Alternative Oral Third-Gen BID)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_daily": 400.0}
+            },
+            "forms": {
+                "Oral Suspension 100 mg / 5 mL": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
+                "Oral Suspension 200 mg / 5 mL": {"type": "liquid", "conc_mg": 200, "conc_ml": 5},
+                "Oral Capsule 400 mg": {"type": "solid", "strength_mg": 400, "unit": "capsule"}
+            },
+            "counseling": [
+                "May be taken with or without food.",
+                "May cause diarrhea. Contact clinician if diarrhea is severe or bloody.",
+                "Store suspension at room temperature or in the refrigerator. Discard after 14 days."
+            ]
+        },
+        "Cefaclor (Ceclor)": {
+            "category": "Antibiotics",
+            "indications": {
+                "Mild-to-Moderate Infection / Pharyngitis (Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_daily": 1000.0},
+                "Severe Infection / Acute Otitis Media (Q12H)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_daily": 1000.0}
+            },
+            "forms": {
+                "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
+                "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Capsule 250 mg": {"type": "solid", "strength_mg": 250, "unit": "capsule"},
+                "Oral Capsule 500 mg": {"type": "solid", "strength_mg": 500, "unit": "capsule"}
+            },
+            "counseling": [
+                "Take with or without food. Taking with food may reduce GI upset.",
+                "Refrigerate the suspension after mixing and discard after 14 days.",
+                "Complete the full prescribed course even if symptoms improve."
+            ]
+        },
         "Cefdinir (Omnicef)": {
             "category": "Antibiotics",
             "indications": {
@@ -533,6 +569,23 @@ class IndicationDosingEngine:
                 "Store the suspension at room temperature or in the refrigerator. Discard after 10 days."
             ]
         },
+        "Metoclopramide (Reglan)": {
+            "category": "Gastrointestinal",
+            "indications": {
+                "Gastroparesis / Delayed Gastric Emptying": {"dose_mg_kg_dose": 0.1, "freq": 4, "max_single": 10.0, "max_daily": 40.0},
+                "GERD (Pediatric Alternative Therapy)": {"dose_mg_kg_dose": 0.1, "freq": 4, "max_single": 10.0, "max_daily": 40.0}
+            },
+            "forms": {
+                "Oral Solution 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Oral Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"},
+                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
+            },
+            "counseling": [
+                "Take 30 minutes before meals and at bedtime.",
+                "May cause drowsiness or dizziness. Avoid activities requiring mental alertness until effects are known.",
+                "🛑 Stop taking and contact clinician immediately if involuntary or abnormal muscle movements occur (risk of tardive dyskinesia)."
+            ]
+        },
         "Domperidone": {
             "category": "Gastrointestinal",
             "indications": {
@@ -600,6 +653,22 @@ class IndicationDosingEngine:
             "counseling": [
                 "May cause mild drowsiness. Often given in the evening.",
                 "Can be taken with or without food."
+            ]
+        },
+        "Ketotifen (Zaditen)": {
+            "category": "Allergy & Antihistamines",
+            "indications": {
+                "Allergic Rhinitis / Asthma Maint. (6mo - 3yrs)": {"dose_mg_kg_dose": 0.05, "freq": 2, "max_single": 1.0, "max_daily": 2.0},
+                "Allergic Rhinitis / Asthma Maint. (3+ yrs)": {"fixed_dose_mg": 1.0, "freq": 2, "max_single": 1.0, "max_daily": 2.0}
+            },
+            "forms": {
+                "Oral Syrup 1 mg / 5 mL": {"type": "liquid", "conc_mg": 1, "conc_ml": 5},
+                "Oral Tablet 1 mg": {"type": "solid", "strength_mg": 1, "unit": "tablet"}
+            },
+            "counseling": [
+                "Take with food if stomach upset occurs.",
+                "May cause drowsiness or dizziness. Observe caution until the drug's effect is known.",
+                "If used for asthma maintenance, do not stop abruptly or use as a rescue medication for acute attacks."
             ]
         },
         "Loratadine (Claritin)": {
@@ -703,6 +772,21 @@ class IndicationDosingEngine:
                 "Do not exceed 5 doses in 24 hours. Severe liver damage may occur if daily maximum is exceeded.",
                 "Check the labels of other over-the-counter cough/cold products to ensure they do not also contain acetaminophen.",
                 "Can be taken with or without food."
+            ]
+        },
+        "Betamethasone": {
+            "category": "Corticosteroids",
+            "indications": {
+                "Allergic / Inflammatory Conditions": {"dose_mg_kg_day": 0.1, "freq": 1, "max_daily": 8.0}
+            },
+            "forms": {
+                "Oral Solution 0.6 mg / 5 mL": {"type": "liquid", "conc_mg": 0.6, "conc_ml": 5},
+                "Oral Tablet 0.6 mg": {"type": "solid", "strength_mg": 0.6, "unit": "tablet"}
+            },
+            "counseling": [
+                "Take with food or milk to decrease stomach upset.",
+                "Take in the morning to prevent insomnia.",
+                "Do not stop abruptly if taking for a prolonged period."
             ]
         },
         "Prednisolone": {
