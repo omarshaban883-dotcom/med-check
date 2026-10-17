@@ -188,10 +188,10 @@ class PairwiseInteractionEngine:
             "summary": "Reduced renal tubular clearance or additive folate antagonism causes severe methotrexate toxicity."
         },
         {
-            "group_a": ["ciprofloxacin", "levofloxacin", "moxifloxacin"],
-            "group_b": ["theophylline", "tizanidine", "amiodarone", "ondansetron"],
+            "group_a": ["ciprofloxacin", "levofloxacin", "moxifloxacin", "domperidone"],
+            "group_b": ["theophylline", "tizanidine", "amiodarone", "ondansetron", "clarithromycin", "erythromycin"],
             "severity": "Major / Contraindicated",
-            "summary": "QTc prolongation risk or profound CYP1A2 inhibition resulting in severe toxicity."
+            "summary": "QTc prolongation risk or profound enzyme inhibition resulting in severe toxicity or arrhythmias."
         }
     ]
 
@@ -526,6 +526,104 @@ class IndicationDosingEngine:
                 "Store the suspension at room temperature or in the refrigerator. Discard after 10 days."
             ]
         },
+        "Domperidone": {
+            "indications": {
+                "GERD / Gastrointestinal Stasis (TID Dosing)": {"dose_mg_kg_dose": 0.4, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
+                "GERD / Prokinetic Agent (QID Dosing)": {"dose_mg_kg_dose": 0.3, "freq": 4, "max_single": 10.0, "max_daily": 30.0}
+            },
+            "forms": {
+                "Oral Suspension 1 mg / 1 mL": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
+                "Oral Suspension 5 mg / 1 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 1},
+                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
+            },
+            "counseling": [
+                "Give 15-30 minutes before feeds/meals.",
+                "Discontinue if there is no clinical response after 4 to 6 weeks.",
+                "Risk of QT prolongation; an ECG is recommended before starting and 3-5 days after initiation for at-risk patients.",
+                "May rarely cause acute dystonic reactions (involuntary twisting, uncontrolled blinking, or difficulty swallowing)."
+            ]
+        },
+        "Cetirizine (Zyrtec)": {
+            "indications": {
+                "Allergic Rhinitis (Fixed Dose: 6mo - 2yrs)": {"fixed_dose_mg": 2.5, "freq": 1, "max_single": 2.5, "max_daily": 2.5},
+                "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
+                "Allergic Rhinitis (Fixed Dose: 6+ yrs)": {"fixed_dose_mg": 10.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0}
+            },
+            "forms": {
+                "Oral Liquid 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"},
+                "Chewable Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"}
+            },
+            "counseling": [
+                "May cause mild drowsiness. Often given in the evening.",
+                "Can be taken with or without food."
+            ]
+        },
+        "Loratadine (Claritin)": {
+            "indications": {
+                "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
+                "Allergic Rhinitis (Fixed Dose: 6+ yrs)": {"fixed_dose_mg": 10.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0}
+            },
+            "forms": {
+                "Oral Liquid 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Chewable Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"},
+                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
+            },
+            "counseling": [
+                "Low sedation risk. Generally non-drowsy at recommended doses.",
+                "Take once daily.",
+                "Can be taken with or without food."
+            ]
+        },
+        "Fexofenadine (Allegra)": {
+            "indications": {
+                "Allergic Rhinitis (Fixed Dose: 6mo - 2yrs)": {"fixed_dose_mg": 15.0, "freq": 2, "max_single": 15.0, "max_daily": 30.0},
+                "Allergic Rhinitis (Fixed Dose: 2 - 11yrs)": {"fixed_dose_mg": 30.0, "freq": 2, "max_single": 30.0, "max_daily": 60.0},
+                "Allergic Rhinitis (Fixed Dose: 12+ yrs / BID)": {"fixed_dose_mg": 60.0, "freq": 2, "max_single": 60.0, "max_daily": 120.0},
+                "Allergic Rhinitis (Fixed Dose: 12+ yrs / Daily)": {"fixed_dose_mg": 180.0, "freq": 1, "max_single": 180.0, "max_daily": 180.0}
+            },
+            "forms": {
+                "Oral Liquid 30 mg / 5 mL": {"type": "liquid", "conc_mg": 30, "conc_ml": 5},
+                "Oral Tablet 30 mg": {"type": "solid", "strength_mg": 30, "unit": "tablet"},
+                "Oral Tablet 60 mg": {"type": "solid", "strength_mg": 60, "unit": "tablet"},
+                "Oral Tablet 180 mg": {"type": "solid", "strength_mg": 180, "unit": "tablet"}
+            },
+            "counseling": [
+                "Minimal sedation risk.",
+                "Do not take with fruit juices (like apple, orange, or grapefruit) as they decrease absorption.",
+                "Shake oral suspension well before use."
+            ]
+        },
+        "Levocetirizine (Xyzal)": {
+            "indications": {
+                "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 2.5, "freq": 1, "max_single": 2.5, "max_daily": 2.5},
+                "Allergic Rhinitis (Fixed Dose: 6 - 11yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
+                "Allergic Rhinitis (Fixed Dose: 12+ yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0}
+            },
+            "forms": {
+                "Oral Solution 2.5 mg / 5 mL": {"type": "liquid", "conc_mg": 2.5, "conc_ml": 5},
+                "Oral Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"}
+            },
+            "counseling": [
+                "May cause mild drowsiness; preferably take in the evening.",
+                "Can be taken with or without food."
+            ]
+        },
+        "Diphenhydramine (Benadryl)": {
+            "indications": {
+                "Allergic Reaction / Urticaria": {"dose_mg_kg_dose": 1.25, "freq": 4, "max_single": 50.0, "max_daily": 300.0}
+            },
+            "forms": {
+                "Oral Liquid 12.5 mg / 5 mL": {"type": "liquid", "conc_mg": 12.5, "conc_ml": 5},
+                "Chewable Tablet 12.5 mg": {"type": "solid", "strength_mg": 12.5, "unit": "tablet"},
+                "Oral Capsule 25 mg": {"type": "solid", "strength_mg": 25, "unit": "capsule"}
+            },
+            "counseling": [
+                "Will cause significant drowsiness. Do not use with other sedating medications.",
+                "May cause paradoxical excitation in some young children.",
+                "Can cause dry mouth."
+            ]
+        },
         "Omeprazole (Prilosec)": {
             "indications": {
                 "GERD / Gastroesophageal Reflux": {"dose_mg_kg_day": 1.0, "freq": 1, "max_daily": 40.0},
@@ -543,67 +641,6 @@ class IndicationDosingEngine:
                 "If unable to swallow, capsules can be opened and granules sprinkled onto a spoonful of cold applesauce; swallow immediately without chewing."
             ]
         },
-        "Pantoprazole (Protonix)": {
-            "indications": {
-                "GERD / Erosive Esophagitis": {"dose_mg_kg_day": 1.2, "freq": 1, "max_daily": 40.0}
-            },
-            "forms": {
-                "Delayed-Release Tablet 20 mg": {"type": "solid", "strength_mg": 20, "unit": "tablet"},
-                "Delayed-Release Tablet 40 mg": {"type": "solid", "strength_mg": 40, "unit": "tablet"}
-            },
-            "counseling": [
-                "Take 30 to 60 minutes before a meal.",
-                "Do not split, chew, or crush the delayed-release tablets. They must be swallowed whole.",
-                "May decrease absorption of certain vitamins or iron over long-term use."
-            ]
-        },
-        "Lansoprazole (Prevacid)": {
-            "indications": {
-                "GERD / Acid Reflux": {"dose_mg_kg_day": 1.0, "freq": 1, "max_daily": 30.0}
-            },
-            "forms": {
-                "Oral Suspension 3 mg / 1 mL": {"type": "liquid", "conc_mg": 3, "conc_ml": 1},
-                "Orally Disintegrating Tablet (ODT) 15 mg": {"type": "solid", "strength_mg": 15, "unit": "tablet"},
-                "Orally Disintegrating Tablet (ODT) 30 mg": {"type": "solid", "strength_mg": 30, "unit": "tablet"},
-                "Delayed-Release Capsule 15 mg": {"type": "solid", "strength_mg": 15, "unit": "capsule"}
-            },
-            "counseling": [
-                "Take 30 to 60 minutes before a meal.",
-                "For ODT: Place tablet on the tongue and allow to dissolve, then swallow. Do not chew.",
-                "Capsules may be opened and sprinkled on applesauce; do not chew the granules."
-            ]
-        },
-        "Famotidine (Pepcid)": {
-            "indications": {
-                "GERD / Acid Indigestion": {"dose_mg_kg_dose": 0.5, "freq": 2, "max_single": 40.0, "max_daily": 80.0},
-                "Peptic Ulcer Disease": {"dose_mg_kg_dose": 0.5, "freq": 1, "max_single": 40.0, "max_daily": 40.0}
-            },
-            "forms": {
-                "Oral Suspension 40 mg / 5 mL": {"type": "liquid", "conc_mg": 40, "conc_ml": 5},
-                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"},
-                "Oral Tablet 20 mg": {"type": "solid", "strength_mg": 20, "unit": "tablet"}
-            },
-            "counseling": [
-                "Can be taken with or without food.",
-                "Shake the oral suspension vigorously before each use.",
-                "Discard unused suspension after 30 days."
-            ]
-        },
-        "Metoclopramide (Reglan)": {
-            "indications": {
-                "Gastroparesis / Delayed Gastric Emptying": {"dose_mg_kg_dose": 0.1, "freq": 4, "max_single": 10.0, "max_daily": 40.0}
-            },
-            "forms": {
-                "Oral Solution 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
-                "Oral Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"},
-                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
-            },
-            "counseling": [
-                "Take 30 minutes before meals and at bedtime.",
-                "May cause drowsiness or dizziness. Avoid activities requiring mental alertness until effects are known.",
-                "🛑 Stop taking and contact clinician immediately if involuntary or abnormal muscle movements occur (risk of tardive dyskinesia)."
-            ]
-        },
         "Ondansetron (Zofran)": {
             "indications": {
                 "Acute Gastroenteritis Dehydration / Nausea": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0}
@@ -617,21 +654,6 @@ class IndicationDosingEngine:
                 "For ODT: Remove from blister pack with dry hands immediately before use. Let it dissolve on the tongue and swallow with saliva.",
                 "Can be taken with or without food.",
                 "May cause mild headache, fatigue, or constipation."
-            ]
-        },
-        "Promethazine (Phenergan)": {
-            "indications": {
-                "Nausea / Vomiting": {"dose_mg_kg_dose": 0.25, "freq": 4, "max_single": 25.0, "max_daily": 100.0}
-            },
-            "forms": {
-                "Oral Syrup 6.25 mg / 5 mL": {"type": "liquid", "conc_mg": 6.25, "conc_ml": 5},
-                "Oral Tablet 12.5 mg": {"type": "solid", "strength_mg": 12.5, "unit": "tablet"},
-                "Oral Tablet 25 mg": {"type": "solid", "strength_mg": 25, "unit": "tablet"}
-            },
-            "counseling": [
-                "🛑 CONTRAINDICATED in children under 2 years of age due to risk of fatal respiratory depression.",
-                "Will cause significant drowsiness. Avoid operating machinery or concurrent use of other sedatives.",
-                "May cause dry mouth or blurred vision."
             ]
         },
         "Ibuprofen": {
@@ -849,6 +871,8 @@ class ClinicalReportGenerator:
         .pair-clear {{ background: #f0fdf4; border-left: 5px solid #16a34a; }}
         .badge {{ display: inline-block; padding: 2px 6px; font-size: 10.5px; font-weight: 700; border-radius: 3px; margin-right: 6px; background: rgba(0,0,0,0.08); }}
         .mono-excerpt {{ background: var(--bg-light); border: 1px solid var(--border); padding: 8px 12px; border-radius: 4px; font-size: 12px; white-space: pre-line; }}
+        .counseling-box {{ background-color: #e0f2fe; border-left: 6px solid #0284c7; padding: 15px; border-radius: 5px; color: #075985; margin-top: 15px; font-size: 13px; }}
+        .counseling-box ul {{ margin: 0; padding-left: 20px; }}
         .signoff-grid {{ margin-top: 35px; padding-top: 15px; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; page-break-inside: avoid; }}
         .sig-line {{ border-bottom: 1px solid #475569; height: 28px; margin-bottom: 4px; }}
         .disclaimer-footer {{ margin-top: 25px; font-size: 11px; color: #64748b; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 10px; }}
@@ -932,7 +956,8 @@ def main():
                 for msg in peds_validation["messages"]: st.warning(msg)
 
             st.markdown("#### 2. Medication, Indication & Formulation")
-            available_drugs = list(IndicationDosingEngine.GUIDELINES.keys())
+            # Sort medications alphabetically
+            available_drugs = sorted(list(IndicationDosingEngine.GUIDELINES.keys()))
             selected_drug = st.selectbox("Select Medication", available_drugs)
             
             available_diagnoses = list(IndicationDosingEngine.GUIDELINES[selected_drug]["indications"].keys())
