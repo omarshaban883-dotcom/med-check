@@ -414,13 +414,20 @@ class IndicationDosingEngine:
             "sources": [
                 {"title": "AAP Clinical Practice Guideline: Acute Otitis Media", "url": "https://doi.org/10.1542/peds.2012-3488"},
                 {"title": "IDSA Guideline: Group A Streptococcal Pharyngitis", "url": "https://doi.org/10.1093/cid/cis629"},
+                {"title": "AHA Guideline: Infective Endocarditis Prophylaxis", "url": "https://doi.org/10.1161/CIRCULATIONAHA.106.183095"},
                 {"title": "DailyMed FDA Label: Amoxicillin", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=AMOXICILLIN"}
             ],
             "indications": {
                 "Acute Otitis Media / Sinusitis (Standard Dose: 45 mg/kg/day Q12H)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_single": 875.0, "max_daily": 1750.0},
                 "Acute Otitis Media / CAP (High Dose: 90 mg/kg/day Q12H)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_single": 2000.0, "max_daily": 4000.0},
+                "Community-Acquired Pneumonia — Mild/Moderate (45 mg/kg/day Q8H)": {"dose_mg_kg_day": 45.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0},
                 "Streptococcal Pharyngitis (Divided: 50 mg/kg/day Q12H)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
-                "Streptococcal Pharyngitis (Once Daily: 50 mg/kg/day Q24H)": {"dose_mg_kg_day": 50.0, "freq": 1, "max_single": 1000.0, "max_daily": 1000.0}
+                "Streptococcal Pharyngitis (Once Daily: 50 mg/kg/day Q24H)": {"dose_mg_kg_day": 50.0, "freq": 1, "max_single": 1000.0, "max_daily": 1000.0},
+                "Lyme Disease — Early Erythema Migrans (50 mg/kg/day Q8H for 14 Days)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0},
+                "Uncomplicated Lower UTI / Cystitis (30 mg/kg/day Q8H)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0},
+                "H. pylori Eradication Triple Therapy (50 mg/kg/day Q12H)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_single": 1000.0, "max_daily": 2000.0},
+                "Infective Endocarditis Dental Prophylaxis (50 mg/kg Single Dose 30–60m Pre-Procedure)": {"dose_mg_kg_dose": 50.0, "freq": 1, "max_single": 2000.0, "max_daily": 2000.0},
+                "Cutaneous Anthrax — Susceptible Strains (80 mg/kg/day Q8H)": {"dose_mg_kg_day": 80.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0}
             },
             "forms": {
                 "Oral Suspension 400 mg / 5 mL": {"type": "liquid", "conc_mg": 400, "conc_ml": 5},
@@ -440,12 +447,18 @@ class IndicationDosingEngine:
             "category": "Antibiotics",
             "sources": [
                 {"title": "AAP Guideline: Acute Bacterial Sinusitis & AOM", "url": "https://doi.org/10.1542/peds.2013-1071"},
+                {"title": "AAP Guideline: Febrile Infant UTI", "url": "https://doi.org/10.1542/peds.2016-3026"},
                 {"title": "DailyMed FDA Label: Augmentin ES-600 / 400", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=AMOXICILLIN+AND+CLAVULANATE"}
             ],
             "indications": {
                 "Acute Otitis Media / Sinusitis (High Dose ES 14:1 — 90 mg/kg/day Q12H)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_single": 2000.0, "max_daily": 4000.0},
-                "Standard Infections (7:1 Formulation — 45 mg/kg/day Q12H)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_single": 875.0, "max_daily": 1750.0},
-                "Bite Wounds / Skin Infection (40 mg/kg/day Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0}
+                "Community-Acquired Pneumonia — Beta-Lactamase Producing (90 mg/kg/day Q12H)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_single": 2000.0, "max_daily": 4000.0},
+                "Standard Respiratory / Sinusitis (7:1 Formulation — 45 mg/kg/day Q12H)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_single": 875.0, "max_daily": 1750.0},
+                "Urinary Tract Infection / Pyelonephritis Step-Down (35 mg/kg/day Q12H)": {"dose_mg_kg_day": 35.0, "freq": 2, "max_single": 875.0, "max_daily": 1750.0},
+                "Animal / Human Bite Wounds & Facial Cellulitis (40 mg/kg/day Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0},
+                "Impetigo / Skin & Soft Tissue Infection (45 mg/kg/day Q12H)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_single": 875.0, "max_daily": 1750.0},
+                "Recurrent Streptococcal Pharyngitis / Chronic Carrier (40 mg/kg/day Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0},
+                "Odontogenic / Dentoalveolar Abscess (45 mg/kg/day Q12H)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_single": 875.0, "max_daily": 1750.0}
             },
             "forms": {
                 "Oral Suspension 600 mg / 5 mL (Augmentin ES 14:1)": {"type": "liquid", "conc_mg": 600, "conc_ml": 5},
@@ -469,7 +482,12 @@ class IndicationDosingEngine:
             ],
             "indications": {
                 "Uncomplicated UTI / Otitis Media (Once Daily: 8 mg/kg/day Q24H)": {"dose_mg_kg_day": 8.0, "freq": 1, "max_single": 400.0, "max_daily": 400.0},
-                "Acute Otitis Media / Pharyngitis (Divided: 8 mg/kg/day Q12H)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 200.0, "max_daily": 400.0}
+                "Acute Otitis Media / Pharyngitis (Divided: 8 mg/kg/day Q12H)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 200.0, "max_daily": 400.0},
+                "Febrile UTI / Pyelonephritis — Day 1 Loading (16 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 16.0, "freq": 2, "max_single": 400.0, "max_daily": 800.0},
+                "Acute Bacterial Sinusitis / Bronchitis (8 mg/kg/day Q24H)": {"dose_mg_kg_day": 8.0, "freq": 1, "max_single": 400.0, "max_daily": 400.0},
+                "Shigellosis — Alternative Therapy (8 mg/kg/day Divided Q12H for 5 Days)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 200.0, "max_daily": 400.0},
+                "Enteric / Typhoid Fever Step-Down (20 mg/kg/day Divided Q12H for 7–14 Days)": {"dose_mg_kg_day": 20.0, "freq": 2, "max_single": 400.0, "max_daily": 800.0},
+                "Uncomplicated Gonococcal Infection — Children < 45 kg (8 mg/kg Single Dose)": {"dose_mg_kg_dose": 8.0, "freq": 1, "max_single": 400.0, "max_daily": 400.0}
             },
             "forms": {
                 "Oral Suspension 100 mg / 5 mL": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
@@ -488,9 +506,12 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Cefaclor Oral Suspension", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CEFACLOR"}
             ],
             "indications": {
-                "Mild-to-Moderate Infections / Pharyngitis (20 mg/kg/day Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_single": 250.0, "max_daily": 1000.0},
-                "Severe Infections / Acute Otitis Media (40 mg/kg/day Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 333.3, "max_daily": 1000.0},
-                "Acute Otitis Media / Pharyngitis (Alternative BID: 40 mg/kg/day Q12H)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0}
+                "Mild-to-Moderate Infections / Pharyngitis (20 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_single": 250.0, "max_daily": 1000.0},
+                "Pharyngitis / Uncomplicated Skin Infection (20 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 20.0, "freq": 2, "max_single": 375.0, "max_daily": 1000.0},
+                "Severe Infections / Acute Otitis Media (40 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 333.3, "max_daily": 1000.0},
+                "Acute Otitis Media (Alternative BID: 40 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Lower Respiratory / Pneumonia — Mild-to-Moderate (20 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_single": 250.0, "max_daily": 1000.0},
+                "Uncomplicated Lower UTI (20 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_single": 250.0, "max_daily": 1000.0}
             },
             "forms": {
                 "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
@@ -511,8 +532,12 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Cefuroxime Axetil", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CEFUROXIME+AXETIL"}
             ],
             "indications": {
-                "Acute Otitis Media / Bacterial Sinusitis (30 mg/kg/day Q12H)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
-                "Pharyngitis / Tonsillitis (20 mg/kg/day Q12H)": {"dose_mg_kg_day": 20.0, "freq": 2, "max_single": 250.0, "max_daily": 500.0}
+                "Acute Otitis Media / Bacterial Sinusitis (30 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Pharyngitis / Tonsillitis (20 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 20.0, "freq": 2, "max_single": 250.0, "max_daily": 500.0},
+                "Community-Acquired Pneumonia / Acute Bronchitis (30 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Impetigo / Uncomplicated Skin Infection (30 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Urinary Tract Infection / Pyelonephritis Step-Down (30 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Early Lyme Disease — Erythema Migrans (30 mg/kg/day Divided Q12H for 14 Days)": {"dose_mg_kg_day": 30.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0}
             },
             "forms": {
                 "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
@@ -533,7 +558,12 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Cefpodoxime Proxetil", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CEFPODOXIME"}
             ],
             "indications": {
-                "Acute Otitis Media / Sinusitis / Pharyngitis (10 mg/kg/day Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 200.0, "max_daily": 400.0}
+                "Acute Otitis Media (10 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 200.0, "max_daily": 400.0},
+                "Acute Bacterial Rhinosinusitis (10 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 200.0, "max_daily": 400.0},
+                "Pharyngitis / Tonsillitis (10 mg/kg/day Divided Q12H for 5–10 Days)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 100.0, "max_daily": 200.0},
+                "Community-Acquired Pneumonia / Step-Down (10 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 200.0, "max_daily": 400.0},
+                "Uncomplicated UTI / Cystitis (10 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 100.0, "max_daily": 200.0},
+                "Skin & Soft Tissue Infections (10 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 400.0, "max_daily": 800.0}
             },
             "forms": {
                 "Oral Suspension 50 mg / 5 mL": {"type": "liquid", "conc_mg": 50, "conc_ml": 5},
@@ -553,8 +583,13 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Cefdinir", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CEFDINIR"}
             ],
             "indications": {
-                "Otitis Media / Sinusitis / Pharyngitis (Divided: 14 mg/kg/day Q12H)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_single": 300.0, "max_daily": 600.0},
-                "Pharyngitis / Uncomplicated Skin Infection (Once Daily: 14 mg/kg/day Q24H)": {"dose_mg_kg_day": 14.0, "freq": 1, "max_single": 600.0, "max_daily": 600.0}
+                "Acute Otitis Media (Divided: 14 mg/kg/day Q12H)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_single": 300.0, "max_daily": 600.0},
+                "Acute Otitis Media — Mild (Once Daily: 14 mg/kg/day Q24H for 10 Days)": {"dose_mg_kg_day": 14.0, "freq": 1, "max_single": 600.0, "max_daily": 600.0},
+                "Acute Bacterial Rhinosinusitis (Divided: 14 mg/kg/day Q12H)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_single": 300.0, "max_daily": 600.0},
+                "Acute Bacterial Rhinosinusitis (Once Daily: 14 mg/kg/day Q24H for 10 Days)": {"dose_mg_kg_day": 14.0, "freq": 1, "max_single": 600.0, "max_daily": 600.0},
+                "Pharyngitis / Tonsillitis (Divided: 14 mg/kg/day Q12H for 5–10 Days)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_single": 300.0, "max_daily": 600.0},
+                "Pharyngitis / Tonsillitis (Once Daily: 14 mg/kg/day Q24H for 10 Days)": {"dose_mg_kg_day": 14.0, "freq": 1, "max_single": 600.0, "max_daily": 600.0},
+                "Uncomplicated Skin & Soft Tissue Infection (Divided: 14 mg/kg/day Q12H for 10 Days)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_single": 300.0, "max_daily": 600.0}
             },
             "forms": {
                 "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
@@ -571,12 +606,18 @@ class IndicationDosingEngine:
             "category": "Antibiotics",
             "sources": [
                 {"title": "IDSA Guideline: Skin and Soft Tissue Infections", "url": "https://doi.org/10.1093/cid/ciu296"},
+                {"title": "PIDS/IDSA Guideline: Acute Hematogenous Osteomyelitis", "url": "https://doi.org/10.1093/jpids/piab027"},
                 {"title": "DailyMed FDA Label: Cephalexin", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CEPHALEXIN"}
             ],
             "indications": {
-                "Mild-to-Moderate Skin / UTI (50 mg/kg/day Q8H)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_single": 500.0, "max_daily": 2000.0},
-                "Streptococcal Pharyngitis (40 mg/kg/day Q12H)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
-                "Severe Skin / Bone Infection (75 mg/kg/day Q8H)": {"dose_mg_kg_day": 75.0, "freq": 3, "max_single": 1000.0, "max_daily": 3000.0}
+                "Mild-to-Moderate Skin / Impetigo / Cellulitis (50 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_single": 500.0, "max_daily": 2000.0},
+                "Mild-to-Moderate Skin / Soft Tissue (50 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 50.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0},
+                "Streptococcal Pharyngitis (40 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Uncomplicated Lower UTI / Cystitis (50 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0},
+                "UTI Prophylaxis (10 mg/kg/day Once Daily at Bedtime)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 250.0, "max_daily": 250.0},
+                "Acute Otitis Media — Alternative (75 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 75.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0},
+                "Osteomyelitis / Septic Arthritis Step-Down — MSSA (100 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 100.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0},
+                "Infective Endocarditis Dental Prophylaxis (50 mg/kg Single Dose 30–60m Pre-Procedure)": {"dose_mg_kg_dose": 50.0, "freq": 1, "max_single": 2000.0, "max_daily": 2000.0}
             },
             "forms": {
                 "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
@@ -593,10 +634,16 @@ class IndicationDosingEngine:
             "category": "Antibiotics",
             "sources": [
                 {"title": "PIDS/IDSA Guideline: Pediatric Community-Acquired Pneumonia", "url": "https://doi.org/10.1093/cid/cir531"},
+                {"title": "ESPID/NASPGHAN Guideline: Pediatric H. pylori Infection", "url": "https://doi.org/10.1097/MPG.0000000000001594"},
                 {"title": "DailyMed FDA Label: Clarithromycin", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CLARITHROMYCIN"}
             ],
             "indications": {
-                "Atypical Pneumonia / Pharyngitis / Otitis Media (15 mg/kg/day Q12H)": {"dose_mg_kg_day": 15.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0}
+                "Atypical Pneumonia / Pharyngitis / Otitis Media / Sinusitis (15 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 15.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Pertussis Treatment or Post-Exposure Prophylaxis (15 mg/kg/day Divided Q12H for 7 Days)": {"dose_mg_kg_day": 15.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Skin & Soft Tissue Infections (15 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 15.0, "freq": 2, "max_single": 250.0, "max_daily": 500.0},
+                "H. pylori Eradication Triple Therapy (20 mg/kg/day Divided Q12H for 14 Days)": {"dose_mg_kg_day": 20.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Nontuberculous Mycobacterial / MAC Infection (15 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 15.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Infective Endocarditis Dental Prophylaxis (15 mg/kg Single Dose 30–60m Pre-Procedure)": {"dose_mg_kg_dose": 15.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0}
             },
             "forms": {
                 "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
@@ -616,10 +663,16 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Azithromycin", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=AZITHROMYCIN"}
             ],
             "indications": {
-                "CAP / Pertussis — Day 1 Loading Dose (10 mg/kg Q24H)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
-                "CAP / Pertussis — Days 2–5 Maintenance (5 mg/kg Q24H)": {"dose_mg_kg_day": 5.0, "freq": 1, "max_single": 250.0, "max_daily": 250.0},
+                "CAP / Atypical Pneumonia — Day 1 Loading Dose (10 mg/kg Q24H)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
+                "CAP / Atypical Pneumonia — Days 2–5 Maintenance (5 mg/kg Q24H)": {"dose_mg_kg_day": 5.0, "freq": 1, "max_single": 250.0, "max_daily": 250.0},
+                "Pertussis — Infants < 6 Months (10 mg/kg/day Q24H for 5 Days)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
                 "Streptococcal Pharyngitis — 5-Day Regimen (12 mg/kg/day Q24H)": {"dose_mg_kg_day": 12.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
-                "Acute Otitis Media — 3-Day Regimen (10 mg/kg/day Q24H)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0}
+                "Acute Otitis Media / Sinusitis — 3-Day Regimen (10 mg/kg/day Q24H)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
+                "Acute Otitis Media — Single-Dose Regimen (30 mg/kg Once)": {"dose_mg_kg_dose": 30.0, "freq": 1, "max_single": 1500.0, "max_daily": 1500.0},
+                "Traveler's Diarrhea / Campylobacter / Shigellosis (10 mg/kg/day Q24H for 3 Days)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
+                "Uncomplicated Typhoid / Enteric Fever (20 mg/kg/day Q24H for 7 Days)": {"dose_mg_kg_day": 20.0, "freq": 1, "max_single": 1000.0, "max_daily": 1000.0},
+                "Cat Scratch Disease / Bartonella henselae — Day 1 (10 mg/kg Q24H)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
+                "Infective Endocarditis Dental Prophylaxis (15 mg/kg Single Dose 30–60m Pre-Procedure)": {"dose_mg_kg_dose": 15.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0}
             },
             "forms": {
                 "Oral Suspension 200 mg / 5 mL": {"type": "liquid", "conc_mg": 200, "conc_ml": 5},
@@ -640,7 +693,12 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Erythromycin Ethylsuccinate", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=ERYTHROMYCIN+ETHYLSUCCINATE"}
             ],
             "indications": {
-                "Pertussis / Mild-to-Moderate Infections (40 mg/kg/day Q6H)": {"dose_mg_kg_day": 40.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0}
+                "Pertussis Treatment / Prophylaxis (40 mg/kg/day Divided Q6H for 14 Days)": {"dose_mg_kg_day": 40.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0},
+                "Streptococcal Pharyngitis — Penicillin Allergy (40 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0},
+                "Chlamydia / Atypical Infant Pneumonia (50 mg/kg/day Divided Q6H for 14 Days)": {"dose_mg_kg_day": 50.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0},
+                "Mild-to-Moderate Skin / Impetigo / Erythrasma (40 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 40.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0},
+                "Rheumatic Fever Secondary Prophylaxis (Fixed 250 mg BID)": {"fixed_dose_mg": 250.0, "freq": 2, "max_single": 250.0, "max_daily": 500.0},
+                "GI Prokinetic / Gastroparesis Motility Agent (3 mg/kg/dose QID Before Meals)": {"dose_mg_kg_dose": 3.0, "freq": 4, "max_single": 250.0, "max_daily": 1000.0}
             },
             "forms": {
                 "Oral Suspension 200 mg / 5 mL": {"type": "liquid", "conc_mg": 200, "conc_ml": 5},
@@ -658,9 +716,12 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Clindamycin Palmitate", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CLINDAMYCIN"}
             ],
             "indications": {
-                "Purulent Skin/Soft Tissue Infection — MRSA (30 mg/kg/day Q8H)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_single": 600.0, "max_daily": 1800.0},
-                "Severe Infection / Pneumonia / Osteomyelitis (40 mg/kg/day Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 600.0, "max_daily": 1800.0},
-                "Odontogenic / Dental Infection (20 mg/kg/day Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_single": 450.0, "max_daily": 1350.0}
+                "Purulent Skin/Soft Tissue Infection — MRSA (30 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_single": 600.0, "max_daily": 1800.0},
+                "Severe Pneumonia / Osteomyelitis / Septic Arthritis (40 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 600.0, "max_daily": 1800.0},
+                "Odontogenic / Dental Infection (20 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_single": 450.0, "max_daily": 1350.0},
+                "Acute Bacterial Sinusitis / Otitis Media — Penicillin Resistant (30 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_single": 450.0, "max_daily": 1350.0},
+                "Chronic GAS Pharyngitis Carrier Eradication (25 mg/kg/day Divided Q8H for 10 Days)": {"dose_mg_kg_day": 25.0, "freq": 3, "max_single": 300.0, "max_daily": 900.0},
+                "Infective Endocarditis Dental Prophylaxis (20 mg/kg Single Dose 30–60m Pre-Procedure)": {"dose_mg_kg_dose": 20.0, "freq": 1, "max_single": 600.0, "max_daily": 600.0}
             },
             "forms": {
                 "Oral Solution 75 mg / 5 mL": {"type": "liquid", "conc_mg": 75, "conc_ml": 5},
@@ -679,8 +740,13 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Sulfamethoxazole and Trimethoprim", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=SULFAMETHOXAZOLE+AND+TRIMETHOPRIM"}
             ],
             "indications": {
-                "UTI / Acute Otitis Media (8 mg/kg/day TMP component Q12H)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0},
-                "Purulent MRSA Skin Infection (10 mg/kg/day TMP component Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0}
+                "UTI / Acute Otitis Media (8 mg/kg/day TMP component Divided Q12H)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0},
+                "Purulent MRSA Skin & Soft Tissue Infection (10 mg/kg/day TMP component Divided Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0},
+                "UTI Prophylaxis (2 mg/kg/day TMP component Once Daily)": {"dose_mg_kg_day": 2.0, "freq": 1, "max_single": 80.0, "max_daily": 80.0, "smx_ratio": 5.0},
+                "Shigellosis / Traveler's Diarrhea (8 mg/kg/day TMP component Divided Q12H)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0},
+                "Pertussis Alternative — Age ≥ 2 Months (8 mg/kg/day TMP component Divided Q12H for 14d)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0},
+                "Pneumocystis (PJP) Prophylaxis (5 mg/kg/day TMP component Divided Q12H on 3d/wk)": {"dose_mg_kg_day": 5.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0},
+                "Pneumocystis (PJP) Active Treatment (18 mg/kg/day TMP component Divided Q6H)": {"dose_mg_kg_day": 18.0, "freq": 4, "max_single": 320.0, "max_daily": 1280.0, "smx_ratio": 5.0}
             },
             "forms": {
                 "Oral Suspension (40 mg TMP + 200 mg SMX per 5 mL)": {"type": "liquid", "conc_mg": 40, "conc_ml": 5},
@@ -701,8 +767,11 @@ class IndicationDosingEngine:
             ],
             "indications": {
                 "Giardiasis (15 mg/kg/day Divided Q8H for 5–7 Days)": {"dose_mg_kg_day": 15.0, "freq": 3, "max_single": 250.0, "max_daily": 750.0},
-                "Anaerobic Infection / Non-Severe C. difficile (30 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 30.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0},
-                "Intestinal Amebiasis (40 mg/kg/day Divided Q8H for 7–10 Days)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 750.0, "max_daily": 2250.0}
+                "Anaerobic Bacterial Infection (30 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 30.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0},
+                "Non-Severe Clostridioides difficile Infection (30 mg/kg/day Divided Q6H for 10 Days)": {"dose_mg_kg_day": 30.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0},
+                "Intestinal / Hepatic Amebiasis (40 mg/kg/day Divided Q8H for 7–10 Days)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 750.0, "max_daily": 2250.0},
+                "H. pylori Eradication Triple Therapy (20 mg/kg/day Divided Q12H for 14 Days)": {"dose_mg_kg_day": 20.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Odontogenic / Periodontal Anaerobic Infection (30 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0}
             },
             "forms": {
                 "Oral Suspension (Benzoate) 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
@@ -721,8 +790,9 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Nitrofurantoin Oral Suspension", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=NITROFURANTOIN"}
             ],
             "indications": {
-                "Uncomplicated Lower UTI / Cystitis (6 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 6.0, "freq": 4, "max_single": 100.0, "max_daily": 400.0},
-                "UTI Prophylaxis (2 mg/kg/day Once Daily at Bedtime)": {"dose_mg_kg_day": 2.0, "freq": 1, "max_single": 100.0, "max_daily": 100.0}
+                "Acute Uncomplicated Lower UTI / Cystitis — Children (6 mg/kg/day Divided Q6H for 5–7d)": {"dose_mg_kg_day": 6.0, "freq": 4, "max_single": 100.0, "max_daily": 400.0},
+                "Recurrent UTI Long-Term Prophylaxis (1.5 mg/kg/day Once Daily at Bedtime)": {"dose_mg_kg_day": 1.5, "freq": 1, "max_single": 100.0, "max_daily": 100.0},
+                "Adolescent Uncomplicated Cystitis — Macrocrystals (Fixed 50 mg Q6H)": {"fixed_dose_mg": 50.0, "freq": 4, "max_single": 100.0, "max_daily": 400.0}
             },
             "forms": {
                 "Oral Suspension 25 mg / 5 mL": {"type": "liquid", "conc_mg": 25, "conc_ml": 5},
@@ -746,7 +816,9 @@ class IndicationDosingEngine:
                 {"title": "Medicines.org.uk (SmPC): Domperidone 1 mg/mL Oral Suspension", "url": "https://www.medicines.org.uk/emc/search?q=domperidone"}
             ],
             "indications": {
-                "Relief of Nausea & Vomiting (EMA Guideline: 0.25 mg/kg TID)": {"dose_mg_kg_dose": 0.25, "freq": 3, "max_single": 10.0, "max_daily": 30.0}
+                "Relief of Acute Nausea & Vomiting (EMA Safety Guideline: 0.25 mg/kg TID)": {"dose_mg_kg_dose": 0.25, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
+                "Adolescents ≥ 12 yrs & ≥ 35 kg — Nausea & Vomiting (Fixed 10 mg TID)": {"fixed_dose_mg": 10.0, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
+                "Specialist Refractory Gastroparesis / Dysmotility (0.25 mg/kg TID Before Feeds)": {"dose_mg_kg_dose": 0.25, "freq": 3, "max_single": 10.0, "max_daily": 30.0}
             },
             "forms": {
                 "Oral Suspension 1 mg / 1 mL (5 mg / 5 mL)": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
@@ -765,8 +837,9 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Metoclopramide", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=METOCLOPRAMIDE"}
             ],
             "indications": {
-                "Second-Line Post-Op / Chemo Nausea (0.15 mg/kg/dose TID)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
-                "Conservative Pediatric Regimen (0.1 mg/kg/dose TID)": {"dose_mg_kg_dose": 0.1, "freq": 3, "max_single": 10.0, "max_daily": 30.0}
+                "Second-Line Post-Operative Nausea & Vomiting — Age ≥ 1 yr (0.15 mg/kg/dose TID)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
+                "Second-Line Delayed Chemotherapy-Induced Nausea — Age ≥ 1 yr (0.15 mg/kg/dose TID)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
+                "Refractory Gastroparesis / GI Stasis — Conservative Regimen (0.1 mg/kg/dose TID)": {"dose_mg_kg_dose": 0.1, "freq": 3, "max_single": 10.0, "max_daily": 30.0}
             },
             "forms": {
                 "Oral Solution 5 mg / 5 mL (1 mg / mL)": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
@@ -784,7 +857,19 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Ondansetron", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=ONDANSETRON"}
             ],
             "indications": {
-                "Acute Gastroenteritis Vomiting (Weight-Banded Single/Q8H Protocol)": {
+                "Acute Gastroenteritis Vomiting — Single Dose to Facilitate ORT (Weight-Banded)": {
+                    "type": "weight_bands",
+                    "bands": [
+                        {"min_wt": 8.0, "max_wt": 15.0, "dose_mg": 2.0},
+                        {"min_wt": 15.0, "max_wt": 30.0, "dose_mg": 4.0},
+                        {"min_wt": 30.0, "max_wt": 999.0, "dose_mg": 8.0}
+                    ],
+                    "fallback_mg_kg": 0.15,
+                    "freq": 1,
+                    "max_single": 8.0,
+                    "max_daily": 8.0
+                },
+                "Acute Gastroenteritis Vomiting — Scheduled Q8H Regimen (Weight-Banded)": {
                     "type": "weight_bands",
                     "bands": [
                         {"min_wt": 8.0, "max_wt": 15.0, "dose_mg": 2.0},
@@ -796,7 +881,9 @@ class IndicationDosingEngine:
                     "max_single": 8.0,
                     "max_daily": 24.0
                 },
-                "Exact Weight-Based Protocol (0.15 mg/kg/dose Q8H)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0}
+                "Chemotherapy-Induced Nausea & Vomiting (0.15 mg/kg/dose Q8H)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0},
+                "Post-Operative Nausea & Vomiting Prevention (0.1 mg/kg Single Dose; Max 4 mg)": {"dose_mg_kg_dose": 0.1, "freq": 1, "max_single": 4.0, "max_daily": 4.0},
+                "Cyclic Vomiting Syndrome — Abortive Phase (0.15 mg/kg/dose Q8H)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0}
             },
             "forms": {
                 "Oral Solution 4 mg / 5 mL": {"type": "liquid", "conc_mg": 4, "conc_ml": 5},
@@ -815,7 +902,7 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Omeprazole Delayed-Release", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=OMEPRAZOLE"}
             ],
             "indications": {
-                "Pediatric GERD / Erosive Esophagitis (Weight-Banded Once Daily)": {
+                "Pediatric GERD / Erosive Esophagitis (FDA Weight-Banded Once Daily)": {
                     "type": "weight_bands",
                     "bands": [
                         {"min_wt": 5.0, "max_wt": 10.0, "dose_mg": 5.0},
@@ -827,7 +914,10 @@ class IndicationDosingEngine:
                     "max_single": 40.0,
                     "max_daily": 40.0
                 },
-                "Exact Weight-Based GERD Protocol (1 mg/kg/day Q24H)": {"dose_mg_kg_day": 1.0, "freq": 1, "max_single": 40.0, "max_daily": 40.0}
+                "Symptomatic GERD / Peptic Ulcer Disease (1 mg/kg/day Once Daily)": {"dose_mg_kg_day": 1.0, "freq": 1, "max_single": 40.0, "max_daily": 40.0},
+                "Severe / Refractory Erosive Esophagitis (1.5 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 1.5, "freq": 2, "max_single": 20.0, "max_daily": 40.0},
+                "Eosinophilic Esophagitis (EoE) Induction (2 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 2.0, "freq": 2, "max_single": 40.0, "max_daily": 80.0},
+                "H. pylori Eradication Triple Therapy (1.5 mg/kg/day Divided Q12H for 14 Days)": {"dose_mg_kg_day": 1.5, "freq": 2, "max_single": 20.0, "max_daily": 40.0}
             },
             "forms": {
                 "Oral Suspension 2 mg / 1 mL (10 mg / 5 mL)": {"type": "liquid", "conc_mg": 2, "conc_ml": 1},
@@ -846,7 +936,7 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Lansoprazole", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=LANSOPRAZOLE"}
             ],
             "indications": {
-                "Pediatric GERD / Erosive Esophagitis (Weight-Banded Once Daily)": {
+                "Pediatric GERD / Erosive Esophagitis — Age 1–11 yrs (Weight-Banded Once Daily)": {
                     "type": "weight_bands",
                     "bands": [
                         {"min_wt": 5.0, "max_wt": 30.0, "dose_mg": 15.0},
@@ -856,7 +946,9 @@ class IndicationDosingEngine:
                     "freq": 1,
                     "max_single": 30.0,
                     "max_daily": 30.0
-                }
+                },
+                "Eosinophilic Esophagitis (EoE) / Refractory GERD (1.5 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 1.5, "freq": 2, "max_single": 30.0, "max_daily": 60.0},
+                "H. pylori Eradication Triple Therapy (1.5 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 1.5, "freq": 2, "max_single": 30.0, "max_daily": 60.0}
             },
             "forms": {
                 "Orally Disintegrating Tablet (Fastab) 15 mg": {"type": "solid", "strength_mg": 15, "unit": "tablet"},
@@ -875,8 +967,10 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Famotidine Oral Suspension", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=FAMOTIDINE"}
             ],
             "indications": {
-                "Symptomatic GERD / Esophagitis (1 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 1.0, "freq": 2, "max_single": 20.0, "max_daily": 40.0},
-                "Peptic Ulcer Disease (0.5 mg/kg/day Q24H at Bedtime)": {"dose_mg_kg_day": 0.5, "freq": 1, "max_single": 40.0, "max_daily": 40.0}
+                "Symptomatic GERD / Esophagitis — Age ≥ 3 Months (1 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 1.0, "freq": 2, "max_single": 20.0, "max_daily": 40.0},
+                "Infant GERD — Age < 3 Months (0.5 mg/kg/day Once Daily)": {"dose_mg_kg_day": 0.5, "freq": 1, "max_single": 10.0, "max_daily": 10.0},
+                "Peptic Ulcer Disease (0.5 mg/kg/day Once Daily at Bedtime or Divided Q12H)": {"dose_mg_kg_day": 0.5, "freq": 1, "max_single": 40.0, "max_daily": 40.0},
+                "Refractory Urticaria / Anaphylaxis Adjunct — H2 Blockade (1 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 1.0, "freq": 2, "max_single": 20.0, "max_daily": 40.0}
             },
             "forms": {
                 "Oral Suspension 40 mg / 5 mL (8 mg / mL)": {"type": "liquid", "conc_mg": 40, "conc_ml": 5},
@@ -896,7 +990,9 @@ class IndicationDosingEngine:
                 {"title": "Medicines.org.uk (SmPC): Lactulose 3.3g/5mL Oral Solution", "url": "https://www.medicines.org.uk/emc/search?q=lactulose"}
             ],
             "indications": {
-                "Pediatric Functional Constipation (1000 mg/kg/day [~1.5 mL/kg/day] Divided BID)": {"dose_mg_kg_day": 1000.0, "freq": 2, "max_single": 20000.0, "max_daily": 40000.0}
+                "Pediatric Functional Constipation — Maintenance (1000 mg/kg/day [~1.5 mL/kg/day] Divided BID)": {"dose_mg_kg_day": 1000.0, "freq": 2, "max_single": 20000.0, "max_daily": 40000.0},
+                "Functional Constipation — Once Daily Regimen (1000 mg/kg/day [~1.5 mL/kg/day] Q24H)": {"dose_mg_kg_day": 1000.0, "freq": 1, "max_single": 30000.0, "max_daily": 30000.0},
+                "Fecal Impaction / Disimpaction — High Dose (2000 mg/kg/day [~3 mL/kg/day] Divided BID)": {"dose_mg_kg_day": 2000.0, "freq": 2, "max_single": 30000.0, "max_daily": 60000.0}
             },
             "forms": {
                 "Oral Solution 3,335 mg / 5 mL (667 mg / mL)": {"type": "liquid", "conc_mg": 3335, "conc_ml": 5}
@@ -912,7 +1008,7 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Simethicone Infant Drops", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=SIMETHICONE"}
             ],
             "indications": {
-                "Infantile Colic / Functional Gas Relief (Auto Weight-Adjusted QID)": {
+                "Infantile Colic / Functional Gas Relief (Auto Weight-Adjusted QID After Feeds)": {
                     "type": "weight_bands",
                     "bands": [
                         {"min_wt": 0.5, "max_wt": 10.9, "dose_mg": 20.0},
@@ -922,7 +1018,8 @@ class IndicationDosingEngine:
                     "freq": 4,
                     "max_single": 125.0,
                     "max_daily": 500.0
-                }
+                },
+                "Pre-Endoscopy / GI Ultrasound Defoaming Agent (Fixed 40 mg Single Dose)": {"fixed_dose_mg": 40.0, "freq": 1, "max_single": 80.0, "max_daily": 80.0}
             },
             "forms": {
                 "Oral Drops 40 mg / 0.6 mL (66.7 mg / mL)": {"type": "liquid", "conc_mg": 40, "conc_ml": 0.6},
@@ -945,12 +1042,28 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Cetirizine Hydrochloride", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CETIRIZINE"}
             ],
             "indications": {
-                "Allergic Rhinitis / Urticaria (Auto Age-Adjusted Dosing)": {
+                "Allergic Rhinitis — Once Daily (Auto Age-Adjusted)": {
                     "type": "age_bands",
                     "bands": [
                         {"min_mo": 6.0, "max_mo": 24.0, "dose_mg": 2.5, "freq": 1, "note": "Age 6–23 months: 2.5 mg once daily"},
-                        {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 2.5, "freq": 1, "note": "Age 2–5 years: 2.5 mg once daily (may increase to 5 mg/day)"},
-                        {"min_mo": 72.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 6 years: 5–10 mg once daily"}
+                        {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 2.5, "freq": 1, "note": "Age 2–5 years: 2.5 mg once daily (initial dose)"},
+                        {"min_mo": 72.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 6 years: 10 mg once daily"}
+                    ]
+                },
+                "Chronic / Acute Urticaria — Divided BID Regimen (Auto Age-Adjusted)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 12.0, "max_mo": 24.0, "dose_mg": 2.5, "freq": 2, "note": "Age 12–23 months: 2.5 mg twice daily"},
+                        {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 2.5, "freq": 2, "note": "Age 2–5 years: 2.5 mg twice daily (5 mg/day)"},
+                        {"min_mo": 72.0, "max_mo": 9999.0, "dose_mg": 5.0, "freq": 2, "note": "Age ≥ 6 years: 5 mg twice daily (10 mg/day)"}
+                    ]
+                },
+                "Allergic Conjunctivitis / Insect Bite Pruritus (Auto Age-Adjusted Q24H)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 6.0, "max_mo": 24.0, "dose_mg": 2.5, "freq": 1, "note": "Age 6–23 months: 2.5 mg once daily"},
+                        {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 5.0, "freq": 1, "note": "Age 2–5 years: 5 mg once daily"},
+                        {"min_mo": 72.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 6 years: 10 mg once daily"}
                     ]
                 }
             },
@@ -971,7 +1084,15 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Levocetirizine Dihydrochloride", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=LEVOCETIRIZINE"}
             ],
             "indications": {
-                "Allergic Rhinitis / Urticaria (Auto Age-Adjusted Evening Dosing)": {
+                "Perennial / Seasonal Allergic Rhinitis (Auto Age-Adjusted Evening Dosing)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 6.0, "max_mo": 72.0, "dose_mg": 1.25, "freq": 1, "note": "Age 6 months – 5 years: 1.25 mg (2.5 mL) once daily in the evening"},
+                        {"min_mo": 72.0, "max_mo": 144.0, "dose_mg": 2.5, "freq": 1, "note": "Age 6–11 years: 2.5 mg once daily in the evening"},
+                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 5.0, "freq": 1, "note": "Age ≥ 12 years: 5 mg once daily in the evening"}
+                    ]
+                },
+                "Uncomplicated Chronic Idiopathic Urticaria (Auto Age-Adjusted Evening Dosing)": {
                     "type": "age_bands",
                     "bands": [
                         {"min_mo": 6.0, "max_mo": 72.0, "dose_mg": 1.25, "freq": 1, "note": "Age 6 months – 5 years: 1.25 mg (2.5 mL) once daily in the evening"},
@@ -996,7 +1117,16 @@ class IndicationDosingEngine:
                 {"title": "EMA EPAR Product Information: Aerius (Desloratadine)", "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/aerius"}
             ],
             "indications": {
-                "Allergic Rhinitis / Chronic Urticaria (Auto Age-Adjusted Dosing)": {
+                "Seasonal / Perennial Allergic Rhinitis (Auto Age-Adjusted Dosing)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 6.0, "max_mo": 12.0, "dose_mg": 1.0, "freq": 1, "note": "Age 6–11 months: 1 mg (2 mL) once daily"},
+                        {"min_mo": 12.0, "max_mo": 72.0, "dose_mg": 1.25, "freq": 1, "note": "Age 1–5 years: 1.25 mg (2.5 mL) once daily"},
+                        {"min_mo": 72.0, "max_mo": 144.0, "dose_mg": 2.5, "freq": 1, "note": "Age 6–11 years: 2.5 mg (5 mL) once daily"},
+                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 5.0, "freq": 1, "note": "Age ≥ 12 years: 5 mg once daily"}
+                    ]
+                },
+                "Chronic Idiopathic Urticaria (Auto Age-Adjusted Dosing)": {
                     "type": "age_bands",
                     "bands": [
                         {"min_mo": 6.0, "max_mo": 12.0, "dose_mg": 1.0, "freq": 1, "note": "Age 6–11 months: 1 mg (2 mL) once daily"},
@@ -1021,7 +1151,14 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Loratadine Syrup", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=LORATADINE"}
             ],
             "indications": {
-                "Allergic Rhinitis / Urticaria (Auto Age-Adjusted Dosing)": {
+                "Allergic Rhinitis (Auto Age-Adjusted Dosing)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 5.0, "freq": 1, "note": "Age 2–5 years: 5 mg once daily"},
+                        {"min_mo": 72.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 6 years: 10 mg once daily"}
+                    ]
+                },
+                "Chronic Urticaria / Allergic Skin Pruritus (Auto Age-Adjusted Dosing)": {
                     "type": "age_bands",
                     "bands": [
                         {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 5.0, "freq": 1, "note": "Age 2–5 years: 5 mg once daily"},
@@ -1045,12 +1182,25 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Fexofenadine Children's Suspension", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=FEXOFENADINE"}
             ],
             "indications": {
-                "Allergic Rhinitis / Urticaria (Auto Age-Adjusted Dosing)": {
+                "Seasonal Allergic Rhinitis (Auto Age-Adjusted BID)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 24.0, "max_mo": 144.0, "dose_mg": 30.0, "freq": 2, "note": "Age 2–11 years: 30 mg (5 mL) twice daily"},
+                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 60.0, "freq": 2, "note": "Age ≥ 12 years: 60 mg twice daily"}
+                    ]
+                },
+                "Chronic Idiopathic Urticaria (Auto Age-Adjusted BID, 6mo+)": {
                     "type": "age_bands",
                     "bands": [
                         {"min_mo": 6.0, "max_mo": 24.0, "dose_mg": 15.0, "freq": 2, "note": "Age 6–23 months: 15 mg (2.5 mL) twice daily"},
                         {"min_mo": 24.0, "max_mo": 144.0, "dose_mg": 30.0, "freq": 2, "note": "Age 2–11 years: 30 mg (5 mL) twice daily"},
-                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 60.0, "freq": 2, "note": "Age ≥ 12 years: 60 mg twice daily (or 180 mg once daily)"}
+                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 60.0, "freq": 2, "note": "Age ≥ 12 years: 60 mg twice daily"}
+                    ]
+                },
+                "Adolescent Once-Daily Regimen — Rhinitis / Urticaria (Age ≥ 12 yrs: 180 mg Q24H)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 180.0, "freq": 1, "note": "Age ≥ 12 years: 180 mg once daily"}
                     ]
                 }
             },
@@ -1071,9 +1221,9 @@ class IndicationDosingEngine:
                 {"title": "Medicines.org.uk (SmPC): Zaditen 1 mg/5 mL Elixir & Tablets", "url": "https://www.medicines.org.uk/emc/search?q=ketotifen"}
             ],
             "indications": {
-                "Allergic Conditions / Asthma Prophylaxis (Auto Age & Weight Adjusted)": {
-                    "type": "ketotifen_hybrid"
-                }
+                "Allergic Rhinitis / Conjunctivitis (Auto Age & Weight Adjusted)": {"type": "ketotifen_hybrid"},
+                "Bronchial Asthma Prophylaxis / Mast Cell Stabilization (Auto Age & Weight Adjusted)": {"type": "ketotifen_hybrid"},
+                "Chronic Urticaria / Atopic Dermatitis Pruritus (Auto Age & Weight Adjusted)": {"type": "ketotifen_hybrid"}
             },
             "forms": {
                 "Oral Syrup 1 mg / 5 mL (0.2 mg / mL)": {"type": "liquid", "conc_mg": 1, "conc_ml": 5},
@@ -1092,7 +1242,7 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Chlorpheniramine Maleate", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=CHLORPHENIRAMINE"}
             ],
             "indications": {
-                "Symptomatic Allergy / Urticaria (Auto Age-Banded Q6H)": {
+                "Allergic Rhinitis / Acute Urticaria / Insect Bites (Auto Age-Banded)": {
                     "type": "age_bands",
                     "bands": [
                         {"min_mo": 12.0, "max_mo": 24.0, "dose_mg": 1.0, "freq": 2, "note": "Age 1–2 years: 1 mg (2.5 mL) twice daily (max 2 mg/day)"},
@@ -1101,7 +1251,7 @@ class IndicationDosingEngine:
                         {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 4.0, "freq": 4, "note": "Age ≥ 12 years: 4 mg every 6 hours (max 24 mg/day)"}
                     ]
                 },
-                "Weight-Based Calculation (0.35 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 0.35, "freq": 4, "max_single": 4.0, "max_daily": 16.0}
+                "Varicella (Chickenpox) / Viral Exanthem Pruritus (0.35 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 0.35, "freq": 4, "max_single": 4.0, "max_daily": 16.0}
             },
             "forms": {
                 "Oral Syrup 2 mg / 5 mL": {"type": "liquid", "conc_mg": 2, "conc_ml": 5},
@@ -1119,7 +1269,9 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Hydroxyzine Hydrochloride", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=HYDROXYZINE"}
             ],
             "indications": {
-                "Pruritus / Chronic Urticaria (2 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 2.0, "freq": 3, "max_single": 25.0, "max_daily": 100.0}
+                "Atopic Dermatitis Pruritus / Chronic Urticaria (2 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 2.0, "freq": 3, "max_single": 25.0, "max_daily": 100.0},
+                "Nocturnal Pruritus — Bedtime Regimen (1 mg/kg Single Evening Dose)": {"dose_mg_kg_dose": 1.0, "freq": 1, "max_single": 25.0, "max_daily": 25.0},
+                "Pre-Procedural Anxiolysis / Sedation (0.6 mg/kg Single Dose 1h Pre-Op)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 50.0, "max_daily": 50.0}
             },
             "forms": {
                 "Oral Syrup 10 mg / 5 mL (2 mg / mL)": {"type": "liquid", "conc_mg": 10, "conc_ml": 5},
@@ -1137,7 +1289,9 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Diphenhydramine Hydrochloride", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=DIPHENHYDRAMINE"}
             ],
             "indications": {
-                "Acute Allergic Reaction / Urticaria (1.25 mg/kg/dose Q6H)": {"dose_mg_kg_dose": 1.25, "freq": 4, "max_single": 50.0, "max_daily": 300.0}
+                "Acute Allergic Reaction / Urticaria (1.25 mg/kg/dose Q6H)": {"dose_mg_kg_dose": 1.25, "freq": 4, "max_single": 50.0, "max_daily": 300.0},
+                "Anaphylaxis Adjunct — Post-Epinephrine (1.25 mg/kg Single Dose; Max 50 mg)": {"dose_mg_kg_dose": 1.25, "freq": 1, "max_single": 50.0, "max_daily": 50.0},
+                "Drug-Induced Acute Dystonic Reaction (1.25 mg/kg Single Dose; Max 50 mg)": {"dose_mg_kg_dose": 1.25, "freq": 1, "max_single": 50.0, "max_daily": 50.0}
             },
             "forms": {
                 "Oral Liquid 12.5 mg / 5 mL": {"type": "liquid", "conc_mg": 12.5, "conc_ml": 5},
@@ -1145,7 +1299,7 @@ class IndicationDosingEngine:
                 "Oral Capsule 25 mg": {"type": "solid", "strength_mg": 25, "unit": "capsule"}
             },
             "counseling": [
-                "🛑 Contraindicated in children < 2 years (risk of respiratory depression and paradoxical CNS excitation) unless directed under emergency anaphylaxis protocols.",
+                "🛑 Contraindicated in children < 2 years (risk of respiratory depression and paradoxical CNS excitation) unless directed under emergency protocols.",
                 "Causes marked sedation and anticholinergic effects."
             ]
         },
@@ -1161,7 +1315,10 @@ class IndicationDosingEngine:
             ],
             "indications": {
                 "Fever / Mild-to-Moderate Pain (10 mg/kg/dose Q8H, TID)": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 400.0, "max_daily": 1600.0},
-                "Fever / Pain (Q6H Max Frequency — 40 mg/kg/day)": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 400.0, "max_daily": 2400.0}
+                "Fever / Acute Otitis Media / Pharyngitis Pain (10 mg/kg/dose Q6H)": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 400.0, "max_daily": 2400.0},
+                "Acute Musculoskeletal Sprain / Dental Pain (10 mg/kg/dose Q8H)": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 600.0, "max_daily": 1800.0},
+                "Acute Pediatric Migraine — Abortive Dose (10 mg/kg Single Dose; Max 600 mg)": {"dose_mg_kg_dose": 10.0, "freq": 1, "max_single": 600.0, "max_daily": 600.0},
+                "Juvenile Idiopathic Arthritis — Anti-Inflammatory (35 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 35.0, "freq": 3, "max_single": 800.0, "max_daily": 2400.0}
             },
             "forms": {
                 "Children's Oral Suspension 100 mg / 5 mL (20 mg/mL)": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
@@ -1183,8 +1340,10 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Children's Acetaminophen", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=ACETAMINOPHEN"}
             ],
             "indications": {
-                "Fever / Pain Management (15 mg/kg/dose Q6H — 60 mg/kg/day)": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0},
-                "Fever / Pain (Conservative 10 mg/kg/dose Q6H)": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0}
+                "Fever / Pain Management — Standard (15 mg/kg/dose Q6H — 60 mg/kg/day)": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0},
+                "Fever / Pain — Conservative / Infant Regimen (10 mg/kg/dose Q6H — 40 mg/kg/day)": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0},
+                "Post-Vaccination Fever / Discomfort (15 mg/kg/dose Q6H PRN)": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0},
+                "Acute Pediatric Migraine — Abortive Dose (15 mg/kg Single Dose; Max 1000 mg)": {"dose_mg_kg_dose": 15.0, "freq": 1, "max_single": 1000.0, "max_daily": 1000.0}
             },
             "forms": {
                 "Oral Suspension 160 mg / 5 mL (32 mg/mL)": {"type": "liquid", "conc_mg": 160, "conc_ml": 5},
@@ -1206,7 +1365,9 @@ class IndicationDosingEngine:
                 {"title": "Medicines.org.uk (SmPC): Diclofenac Pediatric Dosing", "url": "https://www.medicines.org.uk/emc/search?q=diclofenac"}
             ],
             "indications": {
-                "Acute Pain / Post-Operative Inflammation (Age ≥ 1 yr: 1 mg/kg/dose TID)": {"dose_mg_kg_dose": 1.0, "freq": 3, "max_single": 50.0, "max_daily": 150.0}
+                "Acute Post-Operative / Trauma Pain — Age ≥ 1 yr (1 mg/kg/dose TID)": {"dose_mg_kg_dose": 1.0, "freq": 3, "max_single": 50.0, "max_daily": 150.0},
+                "Mild-to-Moderate Inflammatory Pain — Age ≥ 1 yr (2 mg/kg/day Divided BID)": {"dose_mg_kg_day": 2.0, "freq": 2, "max_single": 50.0, "max_daily": 100.0},
+                "Juvenile Idiopathic Arthritis (2.5 mg/kg/day Divided TID)": {"dose_mg_kg_day": 2.5, "freq": 3, "max_single": 50.0, "max_daily": 150.0}
             },
             "forms": {
                 "Oral Drops (Cataflam) 15 mg / 1 mL (0.5 mg / drop)": {"type": "liquid", "conc_mg": 15, "conc_ml": 1},
@@ -1231,9 +1392,12 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Prednisolone Oral Solution", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=PREDNISOLONE"}
             ],
             "indications": {
-                "Acute Asthma Exacerbation (1–2 mg/kg/day; calculated at 2 mg/kg Q24H)": {"dose_mg_kg_day": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0},
-                "Acute Asthma Exacerbation (Divided: 2 mg/kg/day Q12H)": {"dose_mg_kg_day": 2.0, "freq": 2, "max_single": 30.0, "max_daily": 60.0},
-                "Mild-to-Moderate Croup (1 mg/kg Single Dose)": {"dose_mg_kg_dose": 1.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0}
+                "Acute Asthma Exacerbation — Standard (1 mg/kg/day Q24H for 3–5 Days; Max 40 mg)": {"dose_mg_kg_day": 1.0, "freq": 1, "max_single": 40.0, "max_daily": 40.0},
+                "Acute Asthma Exacerbation — Severe (2 mg/kg/day Q24H for 3–5 Days; Max 60 mg)": {"dose_mg_kg_day": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0},
+                "Acute Asthma Exacerbation — Divided Regimen (2 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 2.0, "freq": 2, "max_single": 30.0, "max_daily": 60.0},
+                "Mild-to-Moderate Croup (1 mg/kg Single Dose)": {"dose_mg_kg_dose": 1.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0},
+                "Severe Acute Allergic / Contact Dermatitis Burst (1 mg/kg/day Q24H)": {"dose_mg_kg_day": 1.0, "freq": 1, "max_single": 40.0, "max_daily": 40.0},
+                "Nephrotic Syndrome — Initial Induction (2 mg/kg/day Q24H; Max 60 mg/day)": {"dose_mg_kg_day": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0}
             },
             "forms": {
                 "Oral Syrup 15 mg / 5 mL (3 mg / mL)": {"type": "liquid", "conc_mg": 15, "conc_ml": 5},
@@ -1254,7 +1418,9 @@ class IndicationDosingEngine:
             "indications": {
                 "Croup — Mild, Moderate, or Severe (0.6 mg/kg Single Dose)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0},
                 "Croup — Low-Dose Alternative (0.15 mg/kg Single Dose)": {"dose_mg_kg_dose": 0.15, "freq": 1, "max_single": 16.0, "max_daily": 16.0},
-                "Acute Asthma Exacerbation (0.6 mg/kg/day Q24H for 1–2 Days)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0}
+                "Acute Asthma Exacerbation (0.6 mg/kg/day Q24H for 1–2 Days)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0},
+                "Severe Acute Exudative Pharyngitis Pain Adjunct (0.6 mg/kg Single Dose; Max 10 mg)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 10.0, "max_daily": 10.0},
+                "General Anti-Inflammatory / Allergic Conditions (0.15 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 0.15, "freq": 2, "max_single": 8.0, "max_daily": 16.0}
             },
             "forms": {
                 "Oral Elixir / Solution 0.5 mg / 5 mL (0.1 mg / mL)": {"type": "liquid", "conc_mg": 0.5, "conc_ml": 5},
@@ -1275,7 +1441,8 @@ class IndicationDosingEngine:
             ],
             "indications": {
                 "Acute Allergic / Inflammatory Conditions (0.1 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 0.1, "freq": 3, "max_single": 1.5, "max_daily": 4.5},
-                "Mild Inflammatory / Allergic Regimen (0.05 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 0.05, "freq": 2, "max_single": 1.2, "max_daily": 2.4}
+                "Mild Inflammatory / Allergic Maintenance (0.05 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 0.05, "freq": 2, "max_single": 1.2, "max_daily": 2.4},
+                "Acute Croup / Laryngotracheobronchitis Alternative (0.4 mg/kg Single Dose; Max 8 mg)": {"dose_mg_kg_dose": 0.4, "freq": 1, "max_single": 8.0, "max_daily": 8.0}
             },
             "forms": {
                 "Oral Syrup / Drops 0.6 mg / 5 mL (0.12 mg / mL)": {"type": "liquid", "conc_mg": 0.6, "conc_ml": 5},
@@ -1295,7 +1462,9 @@ class IndicationDosingEngine:
             ],
             "indications": {
                 "Anti-Inflammatory / Immunosuppressive (2.5 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 2.5, "freq": 3, "max_single": 20.0, "max_daily": 60.0},
-                "Physiologic Adrenal Replacement Approx. (~0.5 mg/kg/day Divided TID)": {"dose_mg_kg_day": 0.5, "freq": 3, "max_single": 10.0, "max_daily": 30.0}
+                "Physiologic Adrenal Replacement Approx. (~0.5 mg/kg/day Divided TID)": {"dose_mg_kg_day": 0.5, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
+                "Adrenal Insufficiency — Minor Febrile Illness 2x Stress Dose (1.0 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 1.0, "freq": 3, "max_single": 20.0, "max_daily": 60.0},
+                "Adrenal Insufficiency — Major Illness 3x Stress Dose (1.5 mg/kg/day Divided Q6H)": {"dose_mg_kg_day": 1.5, "freq": 4, "max_single": 25.0, "max_daily": 100.0}
             },
             "forms": {
                 "Compounded Oral Suspension 1 mg / 1 mL (5 mg / 5 mL)": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
@@ -1319,12 +1488,27 @@ class IndicationDosingEngine:
                 {"title": "DailyMed FDA Label: Montelukast Sodium (Boxed Warning)", "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=MONTELUKAST"}
             ],
             "indications": {
-                "Asthma Maintenance / Allergic Rhinitis (Auto Age-Adjusted Evening Dose)": {
+                "Chronic Asthma Maintenance Therapy (Auto Age-Adjusted Evening Dose)": {
                     "type": "age_bands",
                     "bands": [
-                        {"min_mo": 6.0, "max_mo": 72.0, "dose_mg": 4.0, "freq": 1, "note": "Age 6 months – 5 years: 4 mg (granules or chewable) once daily in the evening"},
+                        {"min_mo": 12.0, "max_mo": 72.0, "dose_mg": 4.0, "freq": 1, "note": "Age 1–5 years: 4 mg (granules or chewable) once daily in the evening"},
                         {"min_mo": 72.0, "max_mo": 180.0, "dose_mg": 5.0, "freq": 1, "note": "Age 6–14 years: 5 mg chewable tablet once daily in the evening"},
                         {"min_mo": 180.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 15 years: 10 mg tablet once daily in the evening"}
+                    ]
+                },
+                "Perennial / Seasonal Allergic Rhinitis (Auto Age-Adjusted Once Daily)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 6.0, "max_mo": 72.0, "dose_mg": 4.0, "freq": 1, "note": "Age 6 months – 5 years: 4 mg once daily"},
+                        {"min_mo": 72.0, "max_mo": 180.0, "dose_mg": 5.0, "freq": 1, "note": "Age 6–14 years: 5 mg chewable tablet once daily"},
+                        {"min_mo": 180.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 15 years: 10 mg tablet once daily"}
+                    ]
+                },
+                "Exercise-Induced Bronchoconstriction Prophylaxis (Auto Age-Adjusted 2h Pre-Exercise)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 72.0, "max_mo": 180.0, "dose_mg": 5.0, "freq": 1, "note": "Age 6–14 years: 5 mg chewable tablet 2 hours before exercise (max 1 dose/24h)"},
+                        {"min_mo": 180.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 15 years: 10 mg tablet 2 hours before exercise (max 1 dose/24h)"}
                     ]
                 }
             },
@@ -1346,7 +1530,15 @@ class IndicationDosingEngine:
                 {"title": "Medicines.org.uk (SmPC): Ventolin 2 mg/5 mL Syrup", "url": "https://www.medicines.org.uk/emc/search?q=ventolin+syrup"}
             ],
             "indications": {
-                "Bronchospasm (Weight-Based: 0.1 mg/kg/dose TID; Max 2–4 mg/dose)": {"dose_mg_kg_dose": 0.1, "freq": 3, "max_single": 4.0, "max_daily": 12.0}
+                "Bronchospasm — Weight-Based Regimen (0.1 mg/kg/dose TID; Max 2–4 mg/dose)": {"dose_mg_kg_dose": 0.1, "freq": 3, "max_single": 4.0, "max_daily": 12.0},
+                "Bronchospasm — Age-Banded UK SmPC Regimen (Auto Age-Adjusted TID–QID)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 1.0, "freq": 3, "note": "Age 2–5 years: 1–2 mg (2.5–5 mL) three times daily"},
+                        {"min_mo": 72.0, "max_mo": 144.0, "dose_mg": 2.0, "freq": 3, "note": "Age 6–11 years: 2 mg (5 mL) three times daily"},
+                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 4.0, "freq": 3, "note": "Age ≥ 12 years: 2–4 mg three times daily"}
+                    ]
+                }
             },
             "forms": {
                 "Oral Syrup 2 mg / 5 mL": {"type": "liquid", "conc_mg": 2, "conc_ml": 5},
@@ -1392,7 +1584,7 @@ class IndicationDosingEngine:
             if not matched_band:
                 min_allowed = rule["bands"][0]["min_mo"]
                 return {
-                    "error": f"🛑 Contraindicated / Not Recommended: Patient age ({age_months:.1f} months) is below the minimum approved age ({min_allowed:g} months) for {drug}."
+                    "error": f"🛑 Contraindicated / Not Recommended: Patient age ({age_months:.1f} months) is below the minimum approved age ({min_allowed:g} months) for this indication of {drug}."
                 }
             raw_single = matched_band["dose_mg"]
             freq = matched_band["freq"]
@@ -1441,13 +1633,17 @@ class IndicationDosingEngine:
                 alerts.append(f"Patient weight ({weight_kg:.1f} kg) is below standard weight-band threshold; calculated using {fb} mg/kg fallback.")
                 formula_explanation = f"{fb} mg/kg × {weight_kg:.1f} kg = {raw_single:.2f} mg"
 
-        # 4. STANDARD WEIGHT-BASED LOGIC (mg/kg/day or mg/kg/dose)
+        # 4. STANDARD WEIGHT-BASED OR FIXED LOGIC
         else:
             freq = rule.get("freq", 2)
             max_single = rule.get("max_single", 0.0)
             max_daily = rule.get("max_daily", 0.0)
 
-            if "dose_mg_kg_day" in rule:
+            if "fixed_dose_mg" in rule:
+                raw_single = rule["fixed_dose_mg"]
+                raw_daily = raw_single * freq
+                formula_explanation = f"Fixed Guideline Regimen: {raw_single:g} mg/dose × {freq}/day ({raw_daily:g} mg/day)"
+            elif "dose_mg_kg_day" in rule:
                 mg_kg_day = rule["dose_mg_kg_day"]
                 raw_daily = weight_kg * mg_kg_day
                 raw_single = raw_daily / freq
