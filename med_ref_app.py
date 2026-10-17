@@ -22,6 +22,7 @@ st.markdown("""
     .interaction-moderate { background-color: #fff3cd; border-left: 6px solid #ffc107; padding: 12px 15px; border-radius: 5px; color: #664d03; margin-bottom: 12px; }
     .interaction-clear { background-color: #d1e7dd; border-left: 6px solid #198754; padding: 12px 15px; border-radius: 5px; color: #0f5132; margin-bottom: 12px; }
     .counseling-box { background-color: #e0f2fe; border-left: 6px solid #0284c7; padding: 15px; border-radius: 5px; color: #075985; margin-top: 15px; }
+    .formula-box { background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 12px 15px; border-radius: 5px; color: #334155; margin-bottom: 15px; font-size: 0.9em; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -189,9 +190,9 @@ class PairwiseInteractionEngine:
         },
         {
             "group_a": ["ciprofloxacin", "levofloxacin", "moxifloxacin", "domperidone"],
-            "group_b": ["theophylline", "tizanidine", "amiodarone", "ondansetron", "clarithromycin", "erythromycin"],
+            "group_b": ["theophylline", "tizanidine", "amiodarone", "ondansetron", "clarithromycin", "erythromycin", "azithromycin"],
             "severity": "Major / Contraindicated",
-            "summary": "QTc prolongation risk or profound enzyme inhibition resulting in severe toxicity or arrhythmias."
+            "summary": "Additive QTc prolongation or CYP3A4/CYP1A2 inhibition resulting in severe toxicity or ventricular arrhythmias."
         }
     ]
 
@@ -406,50 +407,51 @@ class IndicationDosingEngine:
         "Amoxicillin": {
             "category": "Antibiotics",
             "indications": {
-                "Acute Otitis Media (Standard Dose)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 1750.0},
-                "Acute Otitis Media (High Dose / Resistant S. pneumoniae)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
-                "Streptococcal Pharyngitis (Strep Throat)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_daily": 1000.0},
-                "Acute Bacterial Rhinosinusitis": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 2000.0},
-                "Community-Acquired Pneumonia (First-Line High Dose)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0}
+                "Acute Otitis Media / Sinusitis (Standard Dose: 45 mg/kg/day Q12H)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_single": 875.0, "max_daily": 1750.0},
+                "Acute Otitis Media / CAP (High Dose: 90 mg/kg/day Q12H)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_single": 2000.0, "max_daily": 4000.0},
+                "Streptococcal Pharyngitis (50 mg/kg/day Q12H or Q24H)": {"dose_mg_kg_day": 50.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0},
+                "Streptococcal Pharyngitis (Once Daily: 50 mg/kg/day Q24H)": {"dose_mg_kg_day": 50.0, "freq": 1, "max_single": 1000.0, "max_daily": 1000.0}
             },
             "forms": {
                 "Oral Suspension 400 mg / 5 mL": {"type": "liquid", "conc_mg": 400, "conc_ml": 5},
                 "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
                 "Chewable Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"},
-                "Oral Capsule 500 mg": {"type": "solid", "strength_mg": 500, "unit": "capsule"}
+                "Oral Capsule 500 mg": {"type": "solid", "strength_mg": 500, "unit": "capsule"},
+                "Oral Tablet 875 mg": {"type": "solid", "strength_mg": 875, "unit": "tablet"}
             },
             "counseling": [
-                "Can be taken with or without food. Taking with food may decrease stomach upset.",
-                "Complete the entire course of therapy even if feeling better.",
-                "Shake suspension well before each use. Store suspension in refrigerator; discard after 14 days.",
-                "May cause mild diarrhea. Notify clinician if diarrhea is severe or bloody."
+                "Can be taken with or without food. Taking with food decreases GI upset.",
+                "Complete the full prescribed course even if symptoms resolve early.",
+                "Shake suspension well before each dose; refrigerate and discard after 14 days."
             ]
         },
         "Amoxicillin-Clavulanate (Augmentin)": {
             "category": "Antibiotics",
             "indications": {
-                "Acute Otitis Media (High Dose 14:1 / Amox Failure)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
-                "Acute Bacterial Rhinosinusitis (High Dose)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
-                "Bite Wounds (Human / Animal)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_daily": 1500.0}
+                "Acute Otitis Media / Sinusitis (High Dose ES 14:1 — 90 mg/kg/day Q12H)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_single": 2000.0, "max_daily": 4000.0},
+                "Standard Infections (7:1 Formulation — 45 mg/kg/day Q12H)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_single": 875.0, "max_daily": 1750.0},
+                "Bite Wounds / Skin Infection (40 mg/kg/day Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 500.0, "max_daily": 1500.0}
             },
             "forms": {
                 "Oral Suspension 600 mg / 5 mL (Augmentin ES 14:1)": {"type": "liquid", "conc_mg": 600, "conc_ml": 5},
-                "Oral Suspension 400 mg / 5 mL (7:1)": {"type": "liquid", "conc_mg": 400, "conc_ml": 5},
-                "Oral Tablet 875/125 mg": {"type": "solid", "strength_mg": 875, "unit": "tablet"}
+                "Oral Suspension 400 mg / 5 mL (7:1 Ratio)": {"type": "liquid", "conc_mg": 400, "conc_ml": 5},
+                "Oral Suspension 250 mg / 5 mL (4:1 Ratio)": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Tablet 875 mg / 125 mg": {"type": "solid", "strength_mg": 875, "unit": "tablet"},
+                "Oral Tablet 500 mg / 125 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
             },
             "counseling": [
-                "Take with meals or snacks to maximize absorption and minimize stomach upset.",
-                "Refrigerate the suspension and shake well before each use. Discard after 10 days.",
-                "Higher risk of diarrhea compared to amoxicillin alone. Contact clinician if severe.",
-                "Do not substitute two 250 mg tablets for one 500 mg tablet (clavulanate toxicity risk)."
+                "Administer at the start of a meal to enhance clavulanate absorption and minimize diarrhea.",
+                "Note: Dosing is calculated exclusively on the Amoxicillin component.",
+                "Refrigerate reconstituted suspension, shake well, and discard after 10 days.",
+                "Never substitute two 250/125 mg tablets for one 500/125 mg tablet (doubles clavulanate dose and causes severe GI toxicity)."
             ]
         },
         "Cefixime (Suprax)": {
             "category": "Antibiotics",
             "indications": {
-                "Urinary Tract Infection (Uncomplicated)": {"dose_mg_kg_day": 8.0, "freq": 1, "max_daily": 400.0},
-                "Acute Otitis Media (Alternative Oral Third-Gen Daily)": {"dose_mg_kg_day": 8.0, "freq": 1, "max_daily": 400.0},
-                "Acute Otitis Media (Alternative Oral Third-Gen BID)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_daily": 400.0}
+                "Uncomplicated UTI / Otitis Media (Once Daily: 8 mg/kg/day Q24H)": {"dose_mg_kg_day": 8.0, "freq": 1, "max_single": 400.0, "max_daily": 400.0},
+                "Acute Otitis Media / Pharyngitis (Divided: 8 mg/kg/day Q12H)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 200.0, "max_daily": 400.0}
             },
             "forms": {
                 "Oral Suspension 100 mg / 5 mL": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
@@ -458,34 +460,35 @@ class IndicationDosingEngine:
             },
             "counseling": [
                 "May be taken with or without food.",
-                "May cause diarrhea. Contact clinician if diarrhea is severe or bloody.",
-                "Store suspension at room temperature or in the refrigerator. Discard after 14 days."
+                "Note: Oral suspension achieves 25–50% higher peak concentrations than tablets; use suspension for otitis media.",
+                "Store reconstituted suspension at room temperature or refrigerated; discard after 14 days."
             ]
         },
         "Cefaclor (Ceclor)": {
             "category": "Antibiotics",
             "indications": {
-                "Mild-to-Moderate Infection / Pharyngitis (Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_daily": 1000.0},
-                "Severe Infection / Acute Otitis Media (Q12H)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_daily": 1000.0}
+                "Mild-to-Moderate Infections / Pharyngitis (20 mg/kg/day Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_single": 250.0, "max_daily": 1000.0},
+                "Severe Infections / Acute Otitis Media (40 mg/kg/day Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 333.3, "max_daily": 1000.0},
+                "Acute Otitis Media / Pharyngitis (Alternative Q12H: 40 mg/kg/day)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0}
             },
             "forms": {
                 "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
                 "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Suspension 375 mg / 5 mL": {"type": "liquid", "conc_mg": 375, "conc_ml": 5},
                 "Oral Capsule 250 mg": {"type": "solid", "strength_mg": 250, "unit": "capsule"},
                 "Oral Capsule 500 mg": {"type": "solid", "strength_mg": 500, "unit": "capsule"}
             },
             "counseling": [
-                "Take with or without food. Taking with food may reduce GI upset.",
-                "Refrigerate the suspension after mixing and discard after 14 days.",
-                "Complete the full prescribed course even if symptoms improve."
+                "May be taken with food to minimize stomach upset.",
+                "Refrigerate suspension between doses, shake well, and discard after 14 days.",
+                "Associated with a higher rate of serum sickness-like reactions (arthralgia, rash) than other oral cephalosporins."
             ]
         },
         "Cefdinir (Omnicef)": {
             "category": "Antibiotics",
             "indications": {
-                "Acute Otitis Media (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0},
-                "Acute Bacterial Sinusitis": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0},
-                "Streptococcal Pharyngitis (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 1, "max_daily": 600.0}
+                "Otitis Media / Sinusitis / Pharyngitis (Divided: 14 mg/kg/day Q12H)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_single": 300.0, "max_daily": 600.0},
+                "Pharyngitis / Uncomplicated Skin Infection (Once Daily: 14 mg/kg/day Q24H)": {"dose_mg_kg_day": 14.0, "freq": 1, "max_single": 600.0, "max_daily": 600.0}
             },
             "forms": {
                 "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
@@ -493,35 +496,35 @@ class IndicationDosingEngine:
                 "Oral Capsule 300 mg": {"type": "solid", "strength_mg": 300, "unit": "capsule"}
             },
             "counseling": [
-                "Do not take antacids containing magnesium/aluminum or iron supplements within 2 hours of taking cefdinir.",
-                "May cause stools to temporarily turn a harmless red/rust color (especially if taking iron).",
-                "Store suspension at room temperature. Do not refrigerate. Discard after 10 days."
+                "Separate by at least 2 hours from iron supplements or aluminum/magnesium antacids (infant formula iron does not significantly interfere).",
+                "Harmless reddish/rust-colored stools may occur if co-administered with iron-containing products.",
+                "Store reconstituted suspension at room temperature (do not refrigerate); discard after 10 days."
             ]
         },
         "Cephalexin (Keflex)": {
             "category": "Antibiotics",
             "indications": {
-                "Skin & Soft Tissue Infection (Cellulitis/Impetigo)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_daily": 2000.0},
-                "Streptococcal Pharyngitis (Penicillin Allergy)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_daily": 1000.0},
-                "Urinary Tract Infection (Mild/Uncomplicated)": {"dose_mg_kg_day": 50.0, "freq": 4, "max_daily": 2000.0}
+                "Mild-to-Moderate Skin / UTI (50 mg/kg/day Q8H)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_single": 500.0, "max_daily": 2000.0},
+                "Mild-to-Moderate Skin / UTI (50 mg/kg/day Q6H)": {"dose_mg_kg_day": 50.0, "freq": 4, "max_single": 500.0, "max_daily": 2000.0},
+                "Streptococcal Pharyngitis (40 mg/kg/day Q12H)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_single": 500.0, "max_daily": 1000.0}
             },
             "forms": {
                 "Oral Suspension 250 mg / 5 mL": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Oral Suspension 125 mg / 5 mL": {"type": "liquid", "conc_mg": 125, "conc_ml": 5},
                 "Oral Capsule 250 mg": {"type": "solid", "strength_mg": 250, "unit": "capsule"},
                 "Oral Capsule 500 mg": {"type": "solid", "strength_mg": 500, "unit": "capsule"}
             },
             "counseling": [
-                "Can be taken with or without food. Take with food if stomach upset occurs.",
-                "Shake suspension well before using. Keep refrigerated and discard after 14 days.",
-                "Complete the full course even if symptoms disappear early."
+                "Can be taken with or without food.",
+                "Refrigerate suspension after reconstitution and discard after 14 days."
             ]
         },
         "Clindamycin (Cleocin)": {
             "category": "Antibiotics",
             "indications": {
-                "Skin & Soft Tissue Infection (Community MRSA Suspected)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_daily": 1800.0},
-                "Severe Bone/Joint Infection (Osteomyelitis)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_daily": 2700.0},
-                "Odontogenic / Dental Infection": {"dose_mg_kg_day": 20.0, "freq": 3, "max_daily": 1800.0}
+                "Purulent Skin/Soft Tissue Infection — MRSA (30 mg/kg/day Q8H)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_single": 600.0, "max_daily": 1800.0},
+                "Severe Infection / Pneumonia / Osteomyelitis (40 mg/kg/day Q8H)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_single": 600.0, "max_daily": 1800.0},
+                "Odontogenic / Dental Infection (20 mg/kg/day Q8H)": {"dose_mg_kg_day": 20.0, "freq": 3, "max_single": 450.0, "max_daily": 1350.0}
             },
             "forms": {
                 "Oral Solution 75 mg / 5 mL": {"type": "liquid", "conc_mg": 75, "conc_ml": 5},
@@ -529,103 +532,97 @@ class IndicationDosingEngine:
                 "Oral Capsule 300 mg": {"type": "solid", "strength_mg": 300, "unit": "capsule"}
             },
             "counseling": [
-                "Take with a full glass of water to prevent esophageal irritation.",
-                "Can be taken with or without food.",
-                "🛑 Contact clinician immediately if you develop severe, watery, or bloody diarrhea (risk of C. difficile infection)."
+                "Administer capsules with a full glass of water and remain upright for 30 minutes to prevent esophageal ulceration.",
+                "Do NOT refrigerate reconstituted oral solution (causes thickening/precipitation); store at room temperature for up to 14 days.",
+                "🛑 Discontinue and contact clinician if severe watery or bloody diarrhea develops (C. difficile risk)."
             ]
         },
         "Sulfamethoxazole-Trimethoprim (Bactrim)": {
             "category": "Antibiotics",
             "indications": {
-                "Urinary Tract Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_daily": 320.0},
-                "Community MRSA Skin Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_daily": 320.0}
+                "UTI / Acute Otitis Media (8 mg/kg/day TMP component Q12H)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0},
+                "Purulent MRSA Skin Infection (10 mg/kg/day TMP component Q12H)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_single": 160.0, "max_daily": 320.0, "smx_ratio": 5.0}
             },
             "forms": {
-                "Oral Suspension (40 mg TMP / 200 mg SMX per 5 mL)": {"type": "liquid", "conc_mg": 40, "conc_ml": 5},
-                "Single Strength Tablet (80 mg TMP / 400 mg SMX)": {"type": "solid", "strength_mg": 80, "unit": "tablet"},
-                "Double Strength Tablet (160 mg TMP / 800 mg SMX)": {"type": "solid", "strength_mg": 160, "unit": "tablet"}
+                "Oral Suspension (40 mg TMP + 200 mg SMX per 5 mL)": {"type": "liquid", "conc_mg": 40, "conc_ml": 5},
+                "Single Strength Tablet (80 mg TMP + 400 mg SMX)": {"type": "solid", "strength_mg": 80, "unit": "tablet"},
+                "Double Strength Tablet (160 mg TMP + 800 mg SMX)": {"type": "solid", "strength_mg": 160, "unit": "tablet"}
             },
             "counseling": [
-                "Drink plenty of water or fluids while taking this medication to prevent kidney stones.",
-                "Avoid prolonged exposure to sunlight or tanning beds; use sunscreen (high risk of photosensitivity).",
-                "Contact clinician if a severe skin rash, blistering, or peeling occurs."
+                "Contraindicated in infants < 2 months of age (risk of kernicterus).",
+                "Dosing is calculated on the Trimethoprim (TMP) component (1:5 ratio with Sulfamethoxazole).",
+                "Maintain adequate fluid intake to prevent crystalluria; use sunscreen due to photosensitivity."
             ]
         },
         "Azithromycin (Zithromax)": {
             "category": "Antibiotics",
             "indications": {
-                "Community-Acquired Pneumonia / Pertussis (Day 1)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_daily": 500.0},
-                "Community-Acquired Pneumonia / Pertussis (Days 2-5)": {"dose_mg_kg_day": 5.0, "freq": 1, "max_daily": 250.0},
-                "Streptococcal Pharyngitis (5-Day Alternative)": {"dose_mg_kg_day": 12.0, "freq": 1, "max_daily": 500.0}
+                "CAP / Pertussis — Day 1 Loading Dose (10 mg/kg Q24H)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
+                "CAP / Pertussis — Days 2–5 Maintenance (5 mg/kg Q24H)": {"dose_mg_kg_day": 5.0, "freq": 1, "max_single": 250.0, "max_daily": 250.0},
+                "Streptococcal Pharyngitis — 5-Day Regimen (12 mg/kg/day Q24H)": {"dose_mg_kg_day": 12.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0},
+                "Acute Otitis Media — 3-Day Regimen (10 mg/kg/day Q24H)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_single": 500.0, "max_daily": 500.0}
             },
             "forms": {
                 "Oral Suspension 200 mg / 5 mL": {"type": "liquid", "conc_mg": 200, "conc_ml": 5},
                 "Oral Suspension 100 mg / 5 mL": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
-                "Oral Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"}
+                "Oral Tablet 250 mg": {"type": "solid", "strength_mg": 250, "unit": "tablet"},
+                "Oral Tablet 500 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
             },
             "counseling": [
-                "Tablets and immediate-release suspension can be taken with or without food.",
-                "Avoid taking antacids containing aluminum or magnesium within 2 hours of this medication.",
-                "Store the suspension at room temperature or in the refrigerator. Discard after 10 days."
-            ]
-        },
-        "Metoclopramide (Reglan)": {
-            "category": "Gastrointestinal",
-            "indications": {
-                "Gastroparesis / Delayed Gastric Emptying": {"dose_mg_kg_dose": 0.1, "freq": 4, "max_single": 10.0, "max_daily": 40.0},
-                "GERD (Pediatric Alternative Therapy)": {"dose_mg_kg_dose": 0.1, "freq": 4, "max_single": 10.0, "max_daily": 40.0}
-            },
-            "forms": {
-                "Oral Solution 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
-                "Oral Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"},
-                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
-            },
-            "counseling": [
-                "Take 30 minutes before meals and at bedtime.",
-                "May cause drowsiness or dizziness. Avoid activities requiring mental alertness until effects are known.",
-                "🛑 Stop taking and contact clinician immediately if involuntary or abnormal muscle movements occur (risk of tardive dyskinesia)."
+                "May be taken with or without food.",
+                "Separate from aluminum/magnesium antacids by at least 2 hours.",
+                "Store reconstituted suspension at room temperature (5°C to 30°C) and discard after 10 days."
             ]
         },
         "Domperidone": {
             "category": "Gastrointestinal",
             "indications": {
-                "GERD / Gastrointestinal Stasis (TID Dosing)": {"dose_mg_kg_dose": 0.4, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
-                "GERD / Prokinetic Agent (QID Dosing)": {"dose_mg_kg_dose": 0.3, "freq": 4, "max_single": 10.0, "max_daily": 30.0}
+                "Nausea / Vomiting / GI Dysmotility (EMA Safety Guideline: 0.25 mg/kg TID)": {"dose_mg_kg_dose": 0.25, "freq": 3, "max_single": 10.0, "max_daily": 30.0}
             },
             "forms": {
-                "Oral Suspension 1 mg / 1 mL": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
-                "Oral Suspension 5 mg / 1 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 1},
+                "Oral Suspension 1 mg / 1 mL (5 mg / 5 mL)": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
                 "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
             },
             "counseling": [
-                "Give 15-30 minutes before feeds/meals.",
-                "Discontinue if there is no clinical response after 4 to 6 weeks.",
-                "Risk of QT prolongation; an ECG is recommended before starting and 3-5 days after initiation for at-risk patients.",
-                "May rarely cause acute dystonic reactions (involuntary twisting, uncontrolled blinking, or difficulty swallowing)."
+                "Administer 15 to 30 minutes before meals.",
+                "EMA/MHRA Safety Restriction: Use the lowest effective dose for the shortest duration (typically maximum 7 days).",
+                "🛑 Contraindicated with potent CYP3A4 inhibitors (e.g., clarithromycin, ketoconazole) or QTc-prolonging drugs due to risk of ventricular arrhythmia.",
+                "Monitor infants and young children for acute extrapyramidal/dystonic reactions."
             ]
         },
-        "Omeprazole (Prilosec)": {
+        "Metoclopramide (Reglan)": {
             "category": "Gastrointestinal",
             "indications": {
-                "GERD / Gastroesophageal Reflux": {"dose_mg_kg_day": 1.0, "freq": 1, "max_daily": 40.0},
-                "Peptic Ulcer Disease": {"dose_mg_kg_day": 1.0, "freq": 1, "max_daily": 40.0}
+                "Refractory GERD / Gastroparesis (0.1 mg/kg/dose QID)": {"dose_mg_kg_dose": 0.1, "freq": 4, "max_single": 10.0, "max_daily": 30.0},
+                "Post-Operative / Chemotherapy Nausea (0.15 mg/kg/dose TID)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 10.0, "max_daily": 30.0}
             },
             "forms": {
-                "Oral Suspension 2 mg / 1 mL": {"type": "liquid", "conc_mg": 2, "conc_ml": 1},
-                "Delayed-Release Capsule 10 mg": {"type": "solid", "strength_mg": 10, "unit": "capsule"},
-                "Delayed-Release Capsule 20 mg": {"type": "solid", "strength_mg": 20, "unit": "capsule"},
-                "Delayed-Release Capsule 40 mg": {"type": "solid", "strength_mg": 40, "unit": "capsule"}
+                "Oral Solution 5 mg / 5 mL (1 mg / mL)": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Oral Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"},
+                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
             },
             "counseling": [
-                "Take 30 to 60 minutes before a meal, preferably before breakfast.",
-                "Do not chew or crush delayed-release capsules. Swallow whole.",
-                "If unable to swallow, capsules can be opened and granules sprinkled onto a spoonful of cold applesauce; swallow immediately without chewing."
+                "Administer 30 minutes before meals and at bedtime.",
+                "🛑 High risk of acute dystonic reactions (oculogyric crisis, torticollis) in children and young adults; maximum recommended daily dose should not exceed 0.5 mg/kg/day.",
+                "Avoid in children < 1 year of age due to elevated risk of extrapyramidal symptoms and methemoglobinemia."
             ]
         },
         "Ondansetron (Zofran)": {
             "category": "Gastrointestinal",
             "indications": {
-                "Acute Gastroenteritis Dehydration / Nausea": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0}
+                "Acute Gastroenteritis Vomiting (Weight-Banded Single/Q8H Protocol)": {
+                    "type": "weight_bands",
+                    "bands": [
+                        {"min_wt": 8.0, "max_wt": 15.0, "dose_mg": 2.0},
+                        {"min_wt": 15.0, "max_wt": 30.0, "dose_mg": 4.0},
+                        {"min_wt": 30.0, "max_wt": 999.0, "dose_mg": 8.0}
+                    ],
+                    "fallback_mg_kg": 0.15,
+                    "freq": 3,
+                    "max_single": 8.0,
+                    "max_daily": 24.0
+                },
+                "Exact Weight-Based Protocol (0.15 mg/kg/dose Q8H)": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0}
             },
             "forms": {
                 "Oral Solution 4 mg / 5 mL": {"type": "liquid", "conc_mg": 4, "conc_ml": 5},
@@ -633,101 +630,146 @@ class IndicationDosingEngine:
                 "Orally Disintegrating Tablet (ODT) 8 mg": {"type": "solid", "strength_mg": 8, "unit": "tablet"}
             },
             "counseling": [
-                "For ODT: Remove from blister pack with dry hands immediately before use. Let it dissolve on the tongue and swallow with saliva.",
-                "Can be taken with or without food.",
-                "May cause mild headache, fatigue, or constipation."
+                "For acute gastroenteritis, a single oral dose is usually sufficient to facilitate oral rehydration therapy (ORT).",
+                "Begin oral rehydration fluids 15–30 minutes after administering ondansetron.",
+                "Peel ODT blister backing with dry hands; do not push tablet through foil."
+            ]
+        },
+        "Omeprazole (Prilosec)": {
+            "category": "Gastrointestinal",
+            "indications": {
+                "Pediatric GERD / Erosive Esophagitis (Weight-Banded Once Daily)": {
+                    "type": "weight_bands",
+                    "bands": [
+                        {"min_wt": 5.0, "max_wt": 10.0, "dose_mg": 5.0},
+                        {"min_wt": 10.0, "max_wt": 20.0, "dose_mg": 10.0},
+                        {"min_wt": 20.0, "max_wt": 999.0, "dose_mg": 20.0}
+                    ],
+                    "fallback_mg_kg": 1.0,
+                    "freq": 1,
+                    "max_single": 40.0,
+                    "max_daily": 40.0
+                },
+                "Exact Weight-Based GERD Protocol (1 mg/kg/day Q24H)": {"dose_mg_kg_day": 1.0, "freq": 1, "max_single": 40.0, "max_daily": 40.0}
+            },
+            "forms": {
+                "Oral Suspension 2 mg / 1 mL (10 mg / 5 mL)": {"type": "liquid", "conc_mg": 2, "conc_ml": 1},
+                "Delayed-Release Capsule 10 mg": {"type": "solid", "strength_mg": 10, "unit": "capsule"},
+                "Delayed-Release Capsule 20 mg": {"type": "solid", "strength_mg": 20, "unit": "capsule"}
+            },
+            "counseling": [
+                "Administer 30 minutes prior to the morning meal for optimal proton pump inhibition.",
+                "Do not crush or chew enteric-coated granules; capsules may be opened and sprinkled on 1 tablespoon of applesauce."
             ]
         },
         "Cetirizine (Zyrtec)": {
             "category": "Allergy & Antihistamines",
             "indications": {
-                "Allergic Rhinitis (Fixed Dose: 6mo - 2yrs)": {"fixed_dose_mg": 2.5, "freq": 1, "max_single": 2.5, "max_daily": 2.5},
-                "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
-                "Allergic Rhinitis (Fixed Dose: 6+ yrs)": {"fixed_dose_mg": 10.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0}
+                "Allergic Rhinitis / Urticaria (Auto Age-Adjusted Dosing)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 6.0, "max_mo": 24.0, "dose_mg": 2.5, "freq": 1, "note": "Age 6–23 months: 2.5 mg once daily"},
+                        {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 2.5, "freq": 1, "note": "Age 2–5 years: 2.5 mg once daily (may increase to 5 mg/day)"},
+                        {"min_mo": 72.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 6 years: 5–10 mg once daily"}
+                    ]
+                }
             },
             "forms": {
-                "Oral Liquid 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
-                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"},
-                "Chewable Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"}
-            },
-            "counseling": [
-                "May cause mild drowsiness. Often given in the evening.",
-                "Can be taken with or without food."
-            ]
-        },
-        "Ketotifen (Zaditen)": {
-            "category": "Allergy & Antihistamines",
-            "indications": {
-                "Allergic Rhinitis / Asthma Maint. (6mo - 3yrs)": {"dose_mg_kg_dose": 0.05, "freq": 2, "max_single": 1.0, "max_daily": 2.0},
-                "Allergic Rhinitis / Asthma Maint. (3+ yrs)": {"fixed_dose_mg": 1.0, "freq": 2, "max_single": 1.0, "max_daily": 2.0}
-            },
-            "forms": {
-                "Oral Syrup 1 mg / 5 mL": {"type": "liquid", "conc_mg": 1, "conc_ml": 5},
-                "Oral Tablet 1 mg": {"type": "solid", "strength_mg": 1, "unit": "tablet"}
-            },
-            "counseling": [
-                "Take with food if stomach upset occurs.",
-                "May cause drowsiness or dizziness. Observe caution until the drug's effect is known.",
-                "If used for asthma maintenance, do not stop abruptly or use as a rescue medication for acute attacks."
-            ]
-        },
-        "Loratadine (Claritin)": {
-            "category": "Allergy & Antihistamines",
-            "indications": {
-                "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
-                "Allergic Rhinitis (Fixed Dose: 6+ yrs)": {"fixed_dose_mg": 10.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0}
-            },
-            "forms": {
-                "Oral Liquid 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Oral Syrup 5 mg / 5 mL (1 mg / mL)": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
                 "Chewable Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"},
                 "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
             },
             "counseling": [
-                "Low sedation risk. Generally non-drowsy at recommended doses.",
-                "Take once daily.",
-                "Can be taken with or without food."
-            ]
-        },
-        "Fexofenadine (Allegra)": {
-            "category": "Allergy & Antihistamines",
-            "indications": {
-                "Allergic Rhinitis (Fixed Dose: 6mo - 2yrs)": {"fixed_dose_mg": 15.0, "freq": 2, "max_single": 15.0, "max_daily": 30.0},
-                "Allergic Rhinitis (Fixed Dose: 2 - 11yrs)": {"fixed_dose_mg": 30.0, "freq": 2, "max_single": 30.0, "max_daily": 60.0},
-                "Allergic Rhinitis (Fixed Dose: 12+ yrs / BID)": {"fixed_dose_mg": 60.0, "freq": 2, "max_single": 60.0, "max_daily": 120.0},
-                "Allergic Rhinitis (Fixed Dose: 12+ yrs / Daily)": {"fixed_dose_mg": 180.0, "freq": 1, "max_single": 180.0, "max_daily": 180.0}
-            },
-            "forms": {
-                "Oral Liquid 30 mg / 5 mL": {"type": "liquid", "conc_mg": 30, "conc_ml": 5},
-                "Oral Tablet 30 mg": {"type": "solid", "strength_mg": 30, "unit": "tablet"},
-                "Oral Tablet 60 mg": {"type": "solid", "strength_mg": 60, "unit": "tablet"},
-                "Oral Tablet 180 mg": {"type": "solid", "strength_mg": 180, "unit": "tablet"}
-            },
-            "counseling": [
-                "Minimal sedation risk.",
-                "Do not take with fruit juices (like apple, orange, or grapefruit) as they decrease absorption.",
-                "Shake oral suspension well before use."
+                "Second-generation antihistamine; may still cause mild drowsiness in a subset of patients (administer in the evening if sedation occurs).",
+                "Can be administered with or without food."
             ]
         },
         "Levocetirizine (Xyzal)": {
             "category": "Allergy & Antihistamines",
             "indications": {
-                "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 2.5, "freq": 1, "max_single": 2.5, "max_daily": 2.5},
-                "Allergic Rhinitis (Fixed Dose: 6 - 11yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
-                "Allergic Rhinitis (Fixed Dose: 12+ yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0}
+                "Allergic Rhinitis / Urticaria (Auto Age-Adjusted Evening Dosing)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 6.0, "max_mo": 72.0, "dose_mg": 1.25, "freq": 1, "note": "Age 6 months – 5 years: 1.25 mg (2.5 mL) once daily in the evening"},
+                        {"min_mo": 72.0, "max_mo": 144.0, "dose_mg": 2.5, "freq": 1, "note": "Age 6–11 years: 2.5 mg once daily in the evening"},
+                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 5.0, "freq": 1, "note": "Age ≥ 12 years: 5 mg once daily in the evening"}
+                    ]
+                }
             },
             "forms": {
-                "Oral Solution 2.5 mg / 5 mL": {"type": "liquid", "conc_mg": 2.5, "conc_ml": 5},
+                "Oral Solution 2.5 mg / 5 mL (0.5 mg / mL)": {"type": "liquid", "conc_mg": 2.5, "conc_ml": 5},
                 "Oral Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"}
             },
             "counseling": [
-                "May cause mild drowsiness; preferably take in the evening.",
-                "Can be taken with or without food."
+                "Administer in the evening.",
+                "Do not exceed recommended pediatric age-specific doses (higher doses increase somnolence without added efficacy)."
+            ]
+        },
+        "Loratadine (Claritin)": {
+            "category": "Allergy & Antihistamines",
+            "indications": {
+                "Allergic Rhinitis / Urticaria (Auto Age-Adjusted Dosing)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 24.0, "max_mo": 72.0, "dose_mg": 5.0, "freq": 1, "note": "Age 2–5 years: 5 mg once daily"},
+                        {"min_mo": 72.0, "max_mo": 9999.0, "dose_mg": 10.0, "freq": 1, "note": "Age ≥ 6 years: 10 mg once daily"}
+                    ]
+                }
+            },
+            "forms": {
+                "Oral Syrup 5 mg / 5 mL (1 mg / mL)": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Chewable Tablet 5 mg": {"type": "solid", "strength_mg": 5, "unit": "tablet"},
+                "Oral Tablet 10 mg": {"type": "solid", "strength_mg": 10, "unit": "tablet"}
+            },
+            "counseling": [
+                "Non-sedating second-generation antihistamine.",
+                "Not recommended in children under 2 years of age without specialist supervision."
+            ]
+        },
+        "Fexofenadine (Allegra)": {
+            "category": "Allergy & Antihistamines",
+            "indications": {
+                "Allergic Rhinitis / Urticaria (Auto Age-Adjusted Dosing)": {
+                    "type": "age_bands",
+                    "bands": [
+                        {"min_mo": 6.0, "max_mo": 24.0, "dose_mg": 15.0, "freq": 2, "note": "Age 6–23 months: 15 mg (2.5 mL) twice daily"},
+                        {"min_mo": 24.0, "max_mo": 144.0, "dose_mg": 30.0, "freq": 2, "note": "Age 2–11 years: 30 mg (5 mL) twice daily"},
+                        {"min_mo": 144.0, "max_mo": 9999.0, "dose_mg": 60.0, "freq": 2, "note": "Age ≥ 12 years: 60 mg twice daily (or 180 mg once daily)"}
+                    ]
+                }
+            },
+            "forms": {
+                "Oral Suspension 30 mg / 5 mL (6 mg / mL)": {"type": "liquid", "conc_mg": 30, "conc_ml": 5},
+                "Oral Tablet 30 mg": {"type": "solid", "strength_mg": 30, "unit": "tablet"},
+                "Oral Tablet 60 mg": {"type": "solid", "strength_mg": 60, "unit": "tablet"},
+                "Oral Tablet 180 mg": {"type": "solid", "strength_mg": 180, "unit": "tablet"}
+            },
+            "counseling": [
+                "Administer with water only. Avoid apple, orange, or grapefruit juice within 4 hours (inhibits OATP1A2 transporter and reduces absorption by ~40%).",
+                "Separate from aluminum/magnesium antacids by at least 2 hours."
+            ]
+        },
+        "Ketotifen (Zaditen)": {
+            "category": "Allergy & Antihistamines",
+            "indications": {
+                "Allergic Conditions / Asthma Prophylaxis (Auto Age & Weight Adjusted)": {
+                    "type": "ketotifen_hybrid"
+                }
+            },
+            "forms": {
+                "Oral Syrup 1 mg / 5 mL (0.2 mg / mL)": {"type": "liquid", "conc_mg": 1, "conc_ml": 5},
+                "Oral Tablet 1 mg": {"type": "solid", "strength_mg": 1, "unit": "tablet"}
+            },
+            "counseling": [
+                "Take with food.",
+                "For children 6 months to 3 years: dosed at 0.05 mg/kg twice daily. For children > 3 years: 1 mg (5 mL) twice daily.",
+                "Not effective for acute asthma attacks; requires 4–12 weeks of continuous therapy for maximal prophylactic effect."
             ]
         },
         "Diphenhydramine (Benadryl)": {
             "category": "Allergy & Antihistamines",
             "indications": {
-                "Allergic Reaction / Urticaria": {"dose_mg_kg_dose": 1.25, "freq": 4, "max_single": 50.0, "max_daily": 300.0}
+                "Acute Allergic Reaction / Urticaria (1.25 mg/kg/dose Q6H)": {"dose_mg_kg_dose": 1.25, "freq": 4, "max_single": 50.0, "max_daily": 300.0}
             },
             "forms": {
                 "Oral Liquid 12.5 mg / 5 mL": {"type": "liquid", "conc_mg": 12.5, "conc_ml": 5},
@@ -735,98 +777,110 @@ class IndicationDosingEngine:
                 "Oral Capsule 25 mg": {"type": "solid", "strength_mg": 25, "unit": "capsule"}
             },
             "counseling": [
-                "Will cause significant drowsiness. Do not use with other sedating medications.",
-                "May cause paradoxical excitation in some young children.",
-                "Can cause dry mouth."
+                "🛑 Avoid in children < 2 years (risk of respiratory depression and paradoxical CNS excitation) unless directed under emergency anaphylaxis protocols.",
+                "Causes marked sedation and anticholinergic effects (dry mouth, urinary retention)."
             ]
         },
         "Ibuprofen": {
             "category": "Analgesics & Antipyretics",
             "indications": {
-                "Fever / Mild-to-Moderate Pain": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 400.0, "max_daily": 1200.0},
-                "Inflammatory Pain / Juvenile Idiopathic Arthritis": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 600.0, "max_daily": 2400.0}
+                "Fever / Mild-to-Moderate Pain (10 mg/kg/dose Q6–8H, TID Base)": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 400.0, "max_daily": 1600.0},
+                "Fever / Pain (Q6H Max Frequency — 40 mg/kg/day)": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 400.0, "max_daily": 2400.0}
             },
             "forms": {
+                "Children's Oral Suspension 100 mg / 5 mL (20 mg/mL)": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
                 "Infant Oral Drops 50 mg / 1.25 mL (40 mg/mL)": {"type": "liquid", "conc_mg": 50, "conc_ml": 1.25},
-                "Children's Oral Suspension 100 mg / 5 mL": {"type": "liquid", "conc_mg": 100, "conc_ml": 5},
                 "Chewable Tablet 100 mg": {"type": "solid", "strength_mg": 100, "unit": "tablet"},
-                "Oral Tablet 200 mg": {"type": "solid", "strength_mg": 200, "unit": "tablet"}
+                "Oral Tablet 200 mg": {"type": "solid", "strength_mg": 200, "unit": "tablet"},
+                "Oral Tablet 400 mg": {"type": "solid", "strength_mg": 400, "unit": "tablet"}
             },
             "counseling": [
-                "Take with food, milk, or meals to decrease upset stomach.",
-                "Shake suspensions thoroughly before measuring.",
-                "Ensure proper hydration when taking to protect kidney function."
+                "Avoid in infants < 6 months of age or in dehydrated patients (risk of acute kidney injury).",
+                "Administer with food or milk to reduce gastrointestinal irritation.",
+                "Verify concentration carefully: Infant Drops (40 mg/mL) are twice as concentrated as Children's Suspension (20 mg/mL)."
             ]
         },
         "Acetaminophen (Paracetamol)": {
             "category": "Analgesics & Antipyretics",
             "indications": {
-                "Fever / Pain Management": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0}
+                "Fever / Pain Management (15 mg/kg/dose Q6H — 60 mg/kg/day)": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0},
+                "Fever / Pain (Conservative 10 mg/kg/dose Q6H)": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0}
             },
             "forms": {
-                "Oral Suspension 160 mg / 5 mL": {"type": "liquid", "conc_mg": 160, "conc_ml": 5},
-                "Chewable Tablet 160 mg": {"type": "solid", "strength_mg": 160, "unit": "tablet"},
+                "Oral Suspension 160 mg / 5 mL (32 mg/mL)": {"type": "liquid", "conc_mg": 160, "conc_ml": 5},
+                "Oral Suspension 120 mg / 5 mL (24 mg/mL)": {"type": "liquid", "conc_mg": 120, "conc_ml": 5},
+                "Oral Suspension 250 mg / 5 mL (50 mg/mL Forte)": {"type": "liquid", "conc_mg": 250, "conc_ml": 5},
+                "Rectal Suppository 125 mg": {"type": "solid", "strength_mg": 125, "unit": "suppository"},
+                "Rectal Suppository 250 mg": {"type": "solid", "strength_mg": 250, "unit": "suppository"},
                 "Oral Tablet 500 mg": {"type": "solid", "strength_mg": 500, "unit": "tablet"}
             },
             "counseling": [
-                "Do not exceed 5 doses in 24 hours. Severe liver damage may occur if daily maximum is exceeded.",
-                "Check the labels of other over-the-counter cough/cold products to ensure they do not also contain acetaminophen.",
-                "Can be taken with or without food."
-            ]
-        },
-        "Betamethasone": {
-            "category": "Corticosteroids",
-            "indications": {
-                "Allergic / Inflammatory Conditions": {"dose_mg_kg_day": 0.1, "freq": 1, "max_daily": 8.0}
-            },
-            "forms": {
-                "Oral Solution 0.6 mg / 5 mL": {"type": "liquid", "conc_mg": 0.6, "conc_ml": 5},
-                "Oral Tablet 0.6 mg": {"type": "solid", "strength_mg": 0.6, "unit": "tablet"}
-            },
-            "counseling": [
-                "Take with food or milk to decrease stomach upset.",
-                "Take in the morning to prevent insomnia.",
-                "Do not stop abruptly if taking for a prolonged period."
+                "Maximum pediatric daily dose must not exceed 75 mg/kg/day (or 4,000 mg/day, whichever is less) across all products.",
+                "Check all co-administered cough/cold syrups to prevent accidental hepatotoxic overdose."
             ]
         },
         "Prednisolone": {
             "category": "Corticosteroids",
             "indications": {
-                "Acute Asthma Exacerbation": {"dose_mg_kg_day": 2.0, "freq": 1, "max_daily": 60.0},
-                "Croup (Laryngotracheobronchitis)": {"dose_mg_kg_dose": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0}
+                "Acute Asthma Exacerbation (1–2 mg/kg/day; calculated at 2 mg/kg Q24H)": {"dose_mg_kg_day": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0},
+                "Acute Asthma Exacerbation (Divided: 2 mg/kg/day Q12H)": {"dose_mg_kg_day": 2.0, "freq": 2, "max_single": 30.0, "max_daily": 60.0},
+                "Mild-to-Moderate Croup (1 mg/kg Single Dose)": {"dose_mg_kg_dose": 1.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0}
             },
             "forms": {
-                "Oral Syrup 15 mg / 5 mL (Prelone / Orapred)": {"type": "liquid", "conc_mg": 15, "conc_ml": 5},
-                "Oral Solution 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Oral Syrup 15 mg / 5 mL (3 mg / mL)": {"type": "liquid", "conc_mg": 15, "conc_ml": 5},
+                "Oral Solution 5 mg / 5 mL (1 mg / mL)": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
                 "Orally Disintegrating Tablet 15 mg": {"type": "solid", "strength_mg": 15, "unit": "tablet"}
             },
             "counseling": [
-                "Take with food or milk to decrease stomach upset.",
-                "Take in the morning to prevent insomnia.",
-                "May cause increased appetite and mood changes (irritability/hyperactivity in children)."
+                "Administer with food or milk to prevent GI upset; give single daily doses in the morning to mimic endogenous cortisol and reduce insomnia.",
+                "Short courses (3–5 days) do not require tapering."
             ]
         },
         "Dexamethasone": {
             "category": "Corticosteroids",
             "indications": {
-                "Croup (Single Dose Protocol)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0},
-                "Acute Asthma Exacerbation (2-Day Short Course)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0}
+                "Croup — Mild, Moderate, or Severe (0.6 mg/kg Single Dose)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0},
+                "Croup — Low-Dose Alternative (0.15 mg/kg Single Dose)": {"dose_mg_kg_dose": 0.15, "freq": 1, "max_single": 16.0, "max_daily": 16.0},
+                "Acute Asthma Exacerbation (0.6 mg/kg/day Q24H for 1–2 Days)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0}
             },
             "forms": {
-                "Oral Liquid 0.5 mg / 5 mL": {"type": "liquid", "conc_mg": 0.5, "conc_ml": 5},
-                "Oral Intensol Solution 1 mg / 1 mL": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
-                "Oral Tablet 4 mg": {"type": "solid", "strength_mg": 4, "unit": "tablet"}
+                "Oral Elixir / Solution 0.5 mg / 5 mL (0.1 mg / mL)": {"type": "liquid", "conc_mg": 0.5, "conc_ml": 5},
+                "Oral Concentrated Solution 1 mg / 1 mL": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
+                "Oral Tablet 4 mg": {"type": "solid", "strength_mg": 4, "unit": "tablet"},
+                "Oral Tablet 0.5 mg": {"type": "solid", "strength_mg": 0.5, "unit": "tablet"}
             },
             "counseling": [
-                "Take with food to minimize GI upset.",
-                "May cause transient irritability, insomnia, or increased appetite.",
-                "Do not abruptly stop taking this medication if used for prolonged periods."
+                "Note: 0.5 mg/5 mL elixir requires large volumes for bigger children; consider 1 mg/mL concentrate or crushed 4 mg tablets mixed with flavored syrup.",
+                "Long biological half-life (36–54 hours) allows a 1- to 2-day course to equal a 5-day course of prednisolone."
+            ]
+        },
+        "Betamethasone": {
+            "category": "Corticosteroids",
+            "indications": {
+                "Acute Allergic / Inflammatory Conditions (0.1 mg/kg/day Divided Q8H)": {"dose_mg_kg_day": 0.1, "freq": 3, "max_single": 1.5, "max_daily": 4.5},
+                "Mild Inflammatory / Allergic Regimen (0.05 mg/kg/day Divided Q12H)": {"dose_mg_kg_day": 0.05, "freq": 2, "max_single": 1.2, "max_daily": 2.4}
+            },
+            "forms": {
+                "Oral Syrup / Drops 0.6 mg / 5 mL (0.12 mg / mL)": {"type": "liquid", "conc_mg": 0.6, "conc_ml": 5},
+                "Oral Tablet 0.5 mg": {"type": "solid", "strength_mg": 0.5, "unit": "tablet"},
+                "Oral Tablet 0.6 mg": {"type": "solid", "strength_mg": 0.6, "unit": "tablet"}
+            },
+            "counseling": [
+                "Potent long-acting glucocorticoid (approx. 0.6 mg betamethasone = 4 mg methylprednisolone = 5 mg prednisolone).",
+                "Administer with food; avoid prolonged use in pediatrics due to HPA-axis and growth suppression."
             ]
         }
     }
 
     @classmethod
-    def calculate_from_diagnosis(cls, drug: str, diagnosis: str, form_name: str, weight_kg: float) -> Dict[str, Any]:
+    def calculate_from_diagnosis(
+        cls,
+        drug: str,
+        diagnosis: str,
+        form_name: str,
+        weight_kg: float,
+        age_months: float
+    ) -> Dict[str, Any]:
         drug_data = cls.GUIDELINES.get(drug, {})
         rule = drug_data.get("indications", {}).get(diagnosis)
         form = drug_data.get("forms", {}).get(form_name)
@@ -835,60 +889,140 @@ class IndicationDosingEngine:
         if not rule or not form:
             return {"error": "Selected indication or dosage form not found."}
 
-        freq = rule.get("freq", 2)
-        max_single = rule.get("max_single", 0.0)
-        max_daily = rule.get("max_daily", 0.0)
+        alerts = []
+        formula_explanation = ""
+        rule_type = rule.get("type", "standard")
 
-        if "fixed_dose_mg" in rule:
-            raw_single = rule["fixed_dose_mg"]
+        # 1. AGE-BANDED LOGIC (Cetirizine, Loratadine, Fexofenadine, Levocetirizine)
+        if rule_type == "age_bands":
+            matched_band = None
+            for b in rule["bands"]:
+                if b["min_mo"] <= age_months < b["max_mo"]:
+                    matched_band = b
+                    break
+            if not matched_band:
+                min_allowed = rule["bands"][0]["min_mo"]
+                return {
+                    "error": f"🛑 Contraindicated / Not Recommended: Patient age ({age_months:.1f} months) is below the minimum approved age ({min_allowed:g} months) for {drug}."
+                }
+            raw_single = matched_band["dose_mg"]
+            freq = matched_band["freq"]
             raw_daily = raw_single * freq
-        elif "dose_mg_kg_day" in rule:
-            raw_daily = weight_kg * rule["dose_mg_kg_day"]
-            raw_single = raw_daily / freq
+            max_single = raw_single
+            max_daily = raw_daily
+            formula_explanation = f"Age-Banded Guideline ({matched_band['note']})"
+
+        # 2. KETOTIFEN HYBRID AGE/WEIGHT LOGIC
+        elif rule_type == "ketotifen_hybrid":
+            if age_months < 6.0:
+                return {"error": "🛑 Ketotifen is not recommended for infants under 6 months of age."}
+            elif age_months < 36.0:
+                freq = 2
+                raw_single = weight_kg * 0.05
+                raw_daily = raw_single * freq
+                max_single = 1.0
+                max_daily = 2.0
+                formula_explanation = f"Infant/Toddler (6mo–3yrs): 0.05 mg/kg/dose × {weight_kg:.1f} kg = {raw_single:.2f} mg BID"
+            else:
+                freq = 2
+                raw_single = 1.0
+                raw_daily = 2.0
+                max_single = 1.0
+                max_daily = 2.0
+                formula_explanation = "Child (≥ 3 years): Standard flat dose of 1 mg twice daily"
+
+        # 3. WEIGHT-BANDED LOGIC (Ondansetron, Omeprazole)
+        elif rule_type == "weight_bands":
+            freq = rule.get("freq", 1)
+            max_single = rule.get("max_single", 0.0)
+            max_daily = rule.get("max_daily", 0.0)
+            matched_band = None
+            for b in rule["bands"]:
+                if b["min_wt"] <= weight_kg <= b["max_wt"]:
+                    matched_band = b
+                    break
+            if matched_band:
+                raw_single = matched_band["dose_mg"]
+                raw_daily = raw_single * freq
+                formula_explanation = f"Weight-Band ({matched_band['min_wt']:g}–{matched_band['max_wt']:g} kg) → {raw_single:g} mg per dose"
+            else:
+                fb = rule.get("fallback_mg_kg", 0.15)
+                raw_single = weight_kg * fb
+                raw_daily = raw_single * freq
+                alerts.append(f"Patient weight ({weight_kg:.1f} kg) is below standard weight-band threshold; calculated using {fb} mg/kg fallback.")
+                formula_explanation = f"{fb} mg/kg × {weight_kg:.1f} kg = {raw_single:.2f} mg"
+
+        # 4. STANDARD WEIGHT-BASED LOGIC (mg/kg/day or mg/kg/dose)
         else:
-            raw_single = weight_kg * rule["dose_mg_kg_dose"]
-            raw_daily = raw_single * freq
+            freq = rule.get("freq", 2)
+            max_single = rule.get("max_single", 0.0)
+            max_daily = rule.get("max_daily", 0.0)
 
+            if "dose_mg_kg_day" in rule:
+                mg_kg_day = rule["dose_mg_kg_day"]
+                raw_daily = weight_kg * mg_kg_day
+                raw_single = raw_daily / freq
+                formula_explanation = f"({mg_kg_day:g} mg/kg/day × {weight_kg:.2f} kg) ÷ {freq} doses/day = {raw_single:.1f} mg/dose ({raw_daily:.1f} mg/day)"
+            else:
+                mg_kg_dose = rule["dose_mg_kg_dose"]
+                raw_single = weight_kg * mg_kg_dose
+                raw_daily = raw_single * freq
+                formula_explanation = f"{mg_kg_dose:g} mg/kg/dose × {weight_kg:.2f} kg = {raw_single:.1f} mg/dose × {freq}/day ({raw_daily:.1f} mg/day)"
+
+        # APPLY CEILING CAPS ACCURATELY
         final_single = raw_single
         final_daily = raw_daily
-        alerts = []
 
         if max_single > 0 and final_single > max_single:
-            alerts.append(f"Calculated single dose ({raw_single:.1f} mg) capped at guideline max single ceiling ({max_single:.1f} mg).")
+            alerts.append(f"Calculated single dose ({raw_single:.1f} mg) exceeded single-dose limit; capped at {max_single:g} mg/dose.")
             final_single = max_single
             final_daily = final_single * freq
 
         if max_daily > 0 and final_daily > max_daily:
-            alerts.append(f"Calculated daily dose ({final_daily:.1f} mg/day) capped at guideline max daily ceiling ({max_daily:.1f} mg/day).")
+            alerts.append(f"Calculated daily dose ({final_daily:.1f} mg/day) exceeded daily maximum; capped at {max_daily:g} mg/day.")
             final_daily = max_daily
             final_single = final_daily / freq
 
-        dose_unit_str = ""
-        form_calc_details = {}
+        # CHECK SMX-TMP CO-COMPONENT DISPLAY
+        smx_ratio = rule.get("smx_ratio")
+        co_component_str = ""
+        if smx_ratio:
+            smx_single = final_single * smx_ratio
+            smx_daily = final_daily * smx_ratio
+            co_component_str = f" (plus {smx_single:.0f} mg SMX/dose; {smx_daily:.0f} mg SMX/day)"
 
+        # FORMULATION CONVERSION (LIQUID VS SOLID)
         if form["type"] == "liquid":
             conc_mg = form["conc_mg"]
             conc_ml = form["conc_ml"]
-            vol_single = final_single / (conc_mg / conc_ml)
-            vol_daily = final_daily / (conc_mg / conc_ml)
+            mg_per_ml = conc_mg / conc_ml
+            vol_single = final_single / mg_per_ml
+            vol_daily = final_daily / mg_per_ml
             dose_unit_str = f"{vol_single:.2f} mL"
             form_calc_details = {
                 "form_type": "liquid",
                 "vol_single": vol_single,
                 "vol_daily": vol_daily,
-                "conc_str": f"{conc_mg} mg / {conc_ml} mL"
+                "conc_str": f"{conc_mg:g} mg / {conc_ml:g} mL ({mg_per_ml:g} mg/mL)"
             }
         else:
             strength_mg = form["strength_mg"]
-            unit_label = form.get("unit", "unit")
+            unit_label = form.get("unit", "tablet")
             count_single = final_single / strength_mg
             count_daily = final_daily / strength_mg
             dose_unit_str = f"{count_single:.2f} {unit_label}(s)"
+            
+            # Warn if solid form results in awkward fractions
+            remainder = (count_single * 2) % 1
+            if count_single < 0.5 or remainder > 0.15 and remainder < 0.85:
+                alerts.append(f"Calculated solid dose ({count_single:.2f} {unit_label}s) requires awkward splitting. Consider switching to an oral liquid suspension.")
+
             form_calc_details = {
                 "form_type": "solid",
+                "unit_label": unit_label,
                 "count_single": count_single,
                 "count_daily": count_daily,
-                "strength_str": f"{strength_mg} mg per {unit_label}"
+                "strength_str": f"{strength_mg:g} mg per {unit_label}"
             }
 
         return {
@@ -897,6 +1031,8 @@ class IndicationDosingEngine:
             "form_name": form_name,
             "final_single_mg": final_single,
             "final_daily_mg": final_daily,
+            "co_component_str": co_component_str,
+            "formula_explanation": formula_explanation,
             "dose_unit_str": dose_unit_str,
             "form_details": form_calc_details,
             "freq": freq,
@@ -1072,6 +1208,7 @@ def main():
             weight_kg = weight_val if weight_unit == "kg" else weight_val / 2.20462
 
             peds_validation = PediatricWeightValidator.validate_pediatric_weight(age_val, age_unit, weight_kg)
+            age_months = peds_validation["age_months"]
             allow_calc = True
 
             if peds_validation["status"] == "critical":
@@ -1082,19 +1219,15 @@ def main():
 
             st.markdown("#### 2. Medication Selection")
             
-            # Step 1: Select Category
             all_categories = sorted(list(set(data.get("category", "Other") for data in IndicationDosingEngine.GUIDELINES.values())))
             selected_category = st.selectbox("Select Drug Category", all_categories)
             
-            # Step 2: Select Medication filtered by Category
             category_drugs = [drug for drug, data in IndicationDosingEngine.GUIDELINES.items() if data.get("category", "Other") == selected_category]
             selected_drug = st.selectbox("Select Medication", sorted(category_drugs))
             
-            # Step 3: Select Indication
             available_diagnoses = list(IndicationDosingEngine.GUIDELINES[selected_drug]["indications"].keys())
             selected_diagnosis = st.selectbox("Select Indication", available_diagnoses)
 
-            # Step 4: Select Form
             available_forms = list(IndicationDosingEngine.GUIDELINES[selected_drug]["forms"].keys())
             selected_form = st.selectbox("Select Dosage Form / Strength", available_forms)
 
@@ -1103,11 +1236,15 @@ def main():
             if not allow_calc:
                 st.info("🔒 Calculation paused due to weight plausibility warning. Check override box to proceed.")
             else:
-                res = IndicationDosingEngine.calculate_from_diagnosis(selected_drug, selected_diagnosis, selected_form, weight_kg)
+                res = IndicationDosingEngine.calculate_from_diagnosis(
+                    selected_drug, selected_diagnosis, selected_form, weight_kg, age_months
+                )
                 if "error" in res:
                     st.error(res["error"])
                 else:
+                    st.markdown(f'<div class="formula-box">📐 <strong>Formula Applied:</strong> {res["formula_explanation"]}</div>', unsafe_allow_html=True)
                     for alert in res["alerts"]: st.warning(f"⚠️ {alert}")
+                    
                     r1, r2 = st.columns(2)
                     r1.metric("Single Dose", f"{res['final_single_mg']:.1f} mg")
                     r2.metric("Total Daily Dose", f"{res['final_daily_mg']:.1f} mg/day")
@@ -1115,16 +1252,20 @@ def main():
                     fd = res["form_details"]
                     f1, f2 = st.columns(2)
                     if fd["form_type"] == "liquid":
-                        f1.metric("Liquid Volume / Dose", f"{fd['vol_single']:.2f} mL", f"Every {res['interval_hours']} hours")
+                        f1.metric("Liquid Volume / Dose", f"{fd['vol_single']:.2f} mL", f"Every {res['interval_hours']:g} hours")
                         f2.metric("Total Daily Volume", f"{fd['vol_daily']:.2f} mL/day", f"{fd['conc_str']}")
                         sig_form_desc = f"**{fd['vol_single']:.2f} mL** of {fd['conc_str']}"
                     else:
-                        unit_lbl = selected_form.split()[-1]
-                        f1.metric("Form Units / Dose", f"{fd['count_single']:.2f} {unit_lbl}(s)", f"Every {res['interval_hours']} hours")
+                        unit_lbl = fd["unit_label"]
+                        f1.metric("Form Units / Dose", f"{fd['count_single']:.2f} {unit_lbl}(s)", f"Every {res['interval_hours']:g} hours")
                         f2.metric("Total Daily Units", f"{fd['count_daily']:.2f} {unit_lbl}(s)/day", f"{fd['strength_str']}")
                         sig_form_desc = f"**{fd['count_single']:.2f} {unit_lbl}(s)** ({fd['strength_str']})"
 
-                    sig_summary = f"Administer **{res['final_single_mg']:.1f} mg** ({sig_form_desc}) every **{res['interval_hours']} hours** ({res['freq']}x daily) for **{selected_diagnosis}**."
+                    sig_summary = (
+                        f"Administer **{res['final_single_mg']:.1f} mg**{res['co_component_str']} "
+                        f"({sig_form_desc}) every **{res['interval_hours']:g} hours** "
+                        f"({res['freq']}x daily) for **{selected_diagnosis}**."
+                    )
                     st.info(f"**Prescription Sig Summary:**\n\n{sig_summary}")
 
                     if res.get("counseling"):
@@ -1140,10 +1281,11 @@ def main():
                             "Indication": selected_diagnosis,
                             "Dosage Form": selected_form,
                             "Patient Age": f"{age_val:g} {age_unit.lower()}",
-                            "Patient Weight": f"{weight_kg:.2f} kg"
+                            "Patient Weight": f"{weight_kg:.2f} kg",
+                            "Formula Applied": res["formula_explanation"]
                         },
                         "metrics": {
-                            "Single Dose": f"{res['final_single_mg']:.1f} mg",
+                            "Single Dose": f"{res['final_single_mg']:.1f} mg{res['co_component_str']}",
                             "Total Daily Dose": f"{res['final_daily_mg']:.1f} mg/day",
                             "Prescribed Amount / Dose": res["dose_unit_str"]
                         },
@@ -1153,7 +1295,6 @@ def main():
                     }
                     st.session_state.latest_indication = selected_diagnosis
 
-            # AUTO-FETCH FDA MONOGRAPH BASED ON DROPDOWN SELECTION
             api_search_term = selected_drug.split(" (")[0]
             if st.session_state.get("last_fetched_drug") != selected_drug:
                 with st.spinner(f"Auto-fetching FDA Monograph for {api_search_term}..."):
@@ -1163,7 +1304,7 @@ def main():
     with tab_monograph:
         data = st.session_state.get("drug_data")
         if not data:
-            st.warning(f"No FDA Monograph found in the OpenFDA database for '{api_search_term}'.")
+            st.warning(f"No FDA Monograph found in the OpenFDA database for '{api_search_term}'. (Note: Domperidone and Ketotifen oral forms are EMA/internationally regulated and not in the US OpenFDA label database).")
         else:
             st.subheader(data['generic_name'].title())
             st.write(data['indications'])
@@ -1176,7 +1317,7 @@ def main():
 
     with tab_interactions:
         st.subheader("⚡ Pairwise Interaction Checker")
-        med_input = st.text_area("Enter medications (comma-separated):", value="Warfarin, Omeprazole")
+        med_input = st.text_area("Enter medications (comma-separated):", value="Clarithromycin, Domperidone")
         if st.button("Check Interactions"):
             meds = [m.strip() for m in med_input.split(",") if m.strip()]
             profiles = [{"input_name": m, "rxnorm": DrugDataClient.resolve_rxnorm_ingredient(m), "fda_data": DrugDataClient.fetch_drug_label(m)} for m in meds]
@@ -1191,9 +1332,9 @@ def main():
         col_meta1, col_meta2 = st.columns(2)
         with col_meta1:
             pt_name = st.text_input("Patient Name", value="Patient #402")
-            pt_meta_str = st.text_input("Age / Sex", value="5 yrs / Male")
+            pt_meta_str = st.text_input("Age / Sex", value=f"{age_val:g} {age_unit.lower()} / Male")
         with col_meta2:
-            pt_anthro_str = st.text_input("Weight Summary", value="18.0 kg")
+            pt_anthro_str = st.text_input("Weight Summary", value=f"{weight_kg:.1f} kg")
             clinician = st.text_input("Clinician Name", value="Clinician")
         notes = st.text_area("Notes", value="Verified indication-driven dosing & patient counseling points.")
 
