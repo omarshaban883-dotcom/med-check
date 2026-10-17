@@ -404,6 +404,7 @@ class PediatricWeightValidator:
 class IndicationDosingEngine:
     GUIDELINES = {
         "Amoxicillin": {
+            "category": "Antibiotics",
             "indications": {
                 "Acute Otitis Media (Standard Dose)": {"dose_mg_kg_day": 45.0, "freq": 2, "max_daily": 1750.0},
                 "Acute Otitis Media (High Dose / Resistant S. pneumoniae)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
@@ -425,6 +426,7 @@ class IndicationDosingEngine:
             ]
         },
         "Amoxicillin-Clavulanate (Augmentin)": {
+            "category": "Antibiotics",
             "indications": {
                 "Acute Otitis Media (High Dose 14:1 / Amox Failure)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
                 "Acute Bacterial Rhinosinusitis (High Dose)": {"dose_mg_kg_day": 90.0, "freq": 2, "max_daily": 4000.0},
@@ -443,6 +445,7 @@ class IndicationDosingEngine:
             ]
         },
         "Cefdinir (Omnicef)": {
+            "category": "Antibiotics",
             "indications": {
                 "Acute Otitis Media (Penicillin Allergy)": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0},
                 "Acute Bacterial Sinusitis": {"dose_mg_kg_day": 14.0, "freq": 2, "max_daily": 600.0},
@@ -460,6 +463,7 @@ class IndicationDosingEngine:
             ]
         },
         "Cephalexin (Keflex)": {
+            "category": "Antibiotics",
             "indications": {
                 "Skin & Soft Tissue Infection (Cellulitis/Impetigo)": {"dose_mg_kg_day": 50.0, "freq": 3, "max_daily": 2000.0},
                 "Streptococcal Pharyngitis (Penicillin Allergy)": {"dose_mg_kg_day": 40.0, "freq": 2, "max_daily": 1000.0},
@@ -477,6 +481,7 @@ class IndicationDosingEngine:
             ]
         },
         "Clindamycin (Cleocin)": {
+            "category": "Antibiotics",
             "indications": {
                 "Skin & Soft Tissue Infection (Community MRSA Suspected)": {"dose_mg_kg_day": 30.0, "freq": 3, "max_daily": 1800.0},
                 "Severe Bone/Joint Infection (Osteomyelitis)": {"dose_mg_kg_day": 40.0, "freq": 3, "max_daily": 2700.0},
@@ -494,6 +499,7 @@ class IndicationDosingEngine:
             ]
         },
         "Sulfamethoxazole-Trimethoprim (Bactrim)": {
+            "category": "Antibiotics",
             "indications": {
                 "Urinary Tract Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 8.0, "freq": 2, "max_daily": 320.0},
                 "Community MRSA Skin Infection (Dosed on TMP Component)": {"dose_mg_kg_day": 10.0, "freq": 2, "max_daily": 320.0}
@@ -510,6 +516,7 @@ class IndicationDosingEngine:
             ]
         },
         "Azithromycin (Zithromax)": {
+            "category": "Antibiotics",
             "indications": {
                 "Community-Acquired Pneumonia / Pertussis (Day 1)": {"dose_mg_kg_day": 10.0, "freq": 1, "max_daily": 500.0},
                 "Community-Acquired Pneumonia / Pertussis (Days 2-5)": {"dose_mg_kg_day": 5.0, "freq": 1, "max_daily": 250.0},
@@ -527,6 +534,7 @@ class IndicationDosingEngine:
             ]
         },
         "Domperidone": {
+            "category": "Gastrointestinal",
             "indications": {
                 "GERD / Gastrointestinal Stasis (TID Dosing)": {"dose_mg_kg_dose": 0.4, "freq": 3, "max_single": 10.0, "max_daily": 30.0},
                 "GERD / Prokinetic Agent (QID Dosing)": {"dose_mg_kg_dose": 0.3, "freq": 4, "max_single": 10.0, "max_daily": 30.0}
@@ -543,7 +551,42 @@ class IndicationDosingEngine:
                 "May rarely cause acute dystonic reactions (involuntary twisting, uncontrolled blinking, or difficulty swallowing)."
             ]
         },
+        "Omeprazole (Prilosec)": {
+            "category": "Gastrointestinal",
+            "indications": {
+                "GERD / Gastroesophageal Reflux": {"dose_mg_kg_day": 1.0, "freq": 1, "max_daily": 40.0},
+                "Peptic Ulcer Disease": {"dose_mg_kg_day": 1.0, "freq": 1, "max_daily": 40.0}
+            },
+            "forms": {
+                "Oral Suspension 2 mg / 1 mL": {"type": "liquid", "conc_mg": 2, "conc_ml": 1},
+                "Delayed-Release Capsule 10 mg": {"type": "solid", "strength_mg": 10, "unit": "capsule"},
+                "Delayed-Release Capsule 20 mg": {"type": "solid", "strength_mg": 20, "unit": "capsule"},
+                "Delayed-Release Capsule 40 mg": {"type": "solid", "strength_mg": 40, "unit": "capsule"}
+            },
+            "counseling": [
+                "Take 30 to 60 minutes before a meal, preferably before breakfast.",
+                "Do not chew or crush delayed-release capsules. Swallow whole.",
+                "If unable to swallow, capsules can be opened and granules sprinkled onto a spoonful of cold applesauce; swallow immediately without chewing."
+            ]
+        },
+        "Ondansetron (Zofran)": {
+            "category": "Gastrointestinal",
+            "indications": {
+                "Acute Gastroenteritis Dehydration / Nausea": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0}
+            },
+            "forms": {
+                "Oral Solution 4 mg / 5 mL": {"type": "liquid", "conc_mg": 4, "conc_ml": 5},
+                "Orally Disintegrating Tablet (ODT) 4 mg": {"type": "solid", "strength_mg": 4, "unit": "tablet"},
+                "Orally Disintegrating Tablet (ODT) 8 mg": {"type": "solid", "strength_mg": 8, "unit": "tablet"}
+            },
+            "counseling": [
+                "For ODT: Remove from blister pack with dry hands immediately before use. Let it dissolve on the tongue and swallow with saliva.",
+                "Can be taken with or without food.",
+                "May cause mild headache, fatigue, or constipation."
+            ]
+        },
         "Cetirizine (Zyrtec)": {
+            "category": "Allergy & Antihistamines",
             "indications": {
                 "Allergic Rhinitis (Fixed Dose: 6mo - 2yrs)": {"fixed_dose_mg": 2.5, "freq": 1, "max_single": 2.5, "max_daily": 2.5},
                 "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
@@ -560,6 +603,7 @@ class IndicationDosingEngine:
             ]
         },
         "Loratadine (Claritin)": {
+            "category": "Allergy & Antihistamines",
             "indications": {
                 "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
                 "Allergic Rhinitis (Fixed Dose: 6+ yrs)": {"fixed_dose_mg": 10.0, "freq": 1, "max_single": 10.0, "max_daily": 10.0}
@@ -576,6 +620,7 @@ class IndicationDosingEngine:
             ]
         },
         "Fexofenadine (Allegra)": {
+            "category": "Allergy & Antihistamines",
             "indications": {
                 "Allergic Rhinitis (Fixed Dose: 6mo - 2yrs)": {"fixed_dose_mg": 15.0, "freq": 2, "max_single": 15.0, "max_daily": 30.0},
                 "Allergic Rhinitis (Fixed Dose: 2 - 11yrs)": {"fixed_dose_mg": 30.0, "freq": 2, "max_single": 30.0, "max_daily": 60.0},
@@ -595,6 +640,7 @@ class IndicationDosingEngine:
             ]
         },
         "Levocetirizine (Xyzal)": {
+            "category": "Allergy & Antihistamines",
             "indications": {
                 "Allergic Rhinitis (Fixed Dose: 2 - 5yrs)": {"fixed_dose_mg": 2.5, "freq": 1, "max_single": 2.5, "max_daily": 2.5},
                 "Allergic Rhinitis (Fixed Dose: 6 - 11yrs)": {"fixed_dose_mg": 5.0, "freq": 1, "max_single": 5.0, "max_daily": 5.0},
@@ -610,6 +656,7 @@ class IndicationDosingEngine:
             ]
         },
         "Diphenhydramine (Benadryl)": {
+            "category": "Allergy & Antihistamines",
             "indications": {
                 "Allergic Reaction / Urticaria": {"dose_mg_kg_dose": 1.25, "freq": 4, "max_single": 50.0, "max_daily": 300.0}
             },
@@ -624,39 +671,8 @@ class IndicationDosingEngine:
                 "Can cause dry mouth."
             ]
         },
-        "Omeprazole (Prilosec)": {
-            "indications": {
-                "GERD / Gastroesophageal Reflux": {"dose_mg_kg_day": 1.0, "freq": 1, "max_daily": 40.0},
-                "Peptic Ulcer Disease": {"dose_mg_kg_day": 1.0, "freq": 1, "max_daily": 40.0}
-            },
-            "forms": {
-                "Oral Suspension 2 mg / 1 mL": {"type": "liquid", "conc_mg": 2, "conc_ml": 1},
-                "Delayed-Release Capsule 10 mg": {"type": "solid", "strength_mg": 10, "unit": "capsule"},
-                "Delayed-Release Capsule 20 mg": {"type": "solid", "strength_mg": 20, "unit": "capsule"},
-                "Delayed-Release Capsule 40 mg": {"type": "solid", "strength_mg": 40, "unit": "capsule"}
-            },
-            "counseling": [
-                "Take 30 to 60 minutes before a meal, preferably before breakfast.",
-                "Do not chew or crush delayed-release capsules. Swallow whole.",
-                "If unable to swallow, capsules can be opened and granules sprinkled onto a spoonful of cold applesauce; swallow immediately without chewing."
-            ]
-        },
-        "Ondansetron (Zofran)": {
-            "indications": {
-                "Acute Gastroenteritis Dehydration / Nausea": {"dose_mg_kg_dose": 0.15, "freq": 3, "max_single": 8.0, "max_daily": 24.0}
-            },
-            "forms": {
-                "Oral Solution 4 mg / 5 mL": {"type": "liquid", "conc_mg": 4, "conc_ml": 5},
-                "Orally Disintegrating Tablet (ODT) 4 mg": {"type": "solid", "strength_mg": 4, "unit": "tablet"},
-                "Orally Disintegrating Tablet (ODT) 8 mg": {"type": "solid", "strength_mg": 8, "unit": "tablet"}
-            },
-            "counseling": [
-                "For ODT: Remove from blister pack with dry hands immediately before use. Let it dissolve on the tongue and swallow with saliva.",
-                "Can be taken with or without food.",
-                "May cause mild headache, fatigue, or constipation."
-            ]
-        },
         "Ibuprofen": {
+            "category": "Analgesics & Antipyretics",
             "indications": {
                 "Fever / Mild-to-Moderate Pain": {"dose_mg_kg_dose": 10.0, "freq": 3, "max_single": 400.0, "max_daily": 1200.0},
                 "Inflammatory Pain / Juvenile Idiopathic Arthritis": {"dose_mg_kg_dose": 10.0, "freq": 4, "max_single": 600.0, "max_daily": 2400.0}
@@ -674,6 +690,7 @@ class IndicationDosingEngine:
             ]
         },
         "Acetaminophen (Paracetamol)": {
+            "category": "Analgesics & Antipyretics",
             "indications": {
                 "Fever / Pain Management": {"dose_mg_kg_dose": 15.0, "freq": 4, "max_single": 1000.0, "max_daily": 4000.0}
             },
@@ -686,6 +703,40 @@ class IndicationDosingEngine:
                 "Do not exceed 5 doses in 24 hours. Severe liver damage may occur if daily maximum is exceeded.",
                 "Check the labels of other over-the-counter cough/cold products to ensure they do not also contain acetaminophen.",
                 "Can be taken with or without food."
+            ]
+        },
+        "Prednisolone": {
+            "category": "Corticosteroids",
+            "indications": {
+                "Acute Asthma Exacerbation": {"dose_mg_kg_day": 2.0, "freq": 1, "max_daily": 60.0},
+                "Croup (Laryngotracheobronchitis)": {"dose_mg_kg_dose": 2.0, "freq": 1, "max_single": 60.0, "max_daily": 60.0}
+            },
+            "forms": {
+                "Oral Syrup 15 mg / 5 mL (Prelone / Orapred)": {"type": "liquid", "conc_mg": 15, "conc_ml": 5},
+                "Oral Solution 5 mg / 5 mL": {"type": "liquid", "conc_mg": 5, "conc_ml": 5},
+                "Orally Disintegrating Tablet 15 mg": {"type": "solid", "strength_mg": 15, "unit": "tablet"}
+            },
+            "counseling": [
+                "Take with food or milk to decrease stomach upset.",
+                "Take in the morning to prevent insomnia.",
+                "May cause increased appetite and mood changes (irritability/hyperactivity in children)."
+            ]
+        },
+        "Dexamethasone": {
+            "category": "Corticosteroids",
+            "indications": {
+                "Croup (Single Dose Protocol)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0},
+                "Acute Asthma Exacerbation (2-Day Short Course)": {"dose_mg_kg_dose": 0.6, "freq": 1, "max_single": 16.0, "max_daily": 16.0}
+            },
+            "forms": {
+                "Oral Liquid 0.5 mg / 5 mL": {"type": "liquid", "conc_mg": 0.5, "conc_ml": 5},
+                "Oral Intensol Solution 1 mg / 1 mL": {"type": "liquid", "conc_mg": 1, "conc_ml": 1},
+                "Oral Tablet 4 mg": {"type": "solid", "strength_mg": 4, "unit": "tablet"}
+            },
+            "counseling": [
+                "Take with food to minimize GI upset.",
+                "May cause transient irritability, insomnia, or increased appetite.",
+                "Do not abruptly stop taking this medication if used for prolonged periods."
             ]
         }
     }
@@ -945,14 +996,21 @@ def main():
             elif peds_validation["status"] == "warning":
                 for msg in peds_validation["messages"]: st.warning(msg)
 
-            st.markdown("#### 2. Medication, Indication & Formulation")
-            # Sort medications alphabetically
-            available_drugs = sorted(list(IndicationDosingEngine.GUIDELINES.keys()))
-            selected_drug = st.selectbox("Select Medication", available_drugs)
+            st.markdown("#### 2. Medication Selection")
             
+            # Step 1: Select Category
+            all_categories = sorted(list(set(data.get("category", "Other") for data in IndicationDosingEngine.GUIDELINES.values())))
+            selected_category = st.selectbox("Select Drug Category", all_categories)
+            
+            # Step 2: Select Medication filtered by Category
+            category_drugs = [drug for drug, data in IndicationDosingEngine.GUIDELINES.items() if data.get("category", "Other") == selected_category]
+            selected_drug = st.selectbox("Select Medication", sorted(category_drugs))
+            
+            # Step 3: Select Indication
             available_diagnoses = list(IndicationDosingEngine.GUIDELINES[selected_drug]["indications"].keys())
             selected_diagnosis = st.selectbox("Select Indication", available_diagnoses)
 
+            # Step 4: Select Form
             available_forms = list(IndicationDosingEngine.GUIDELINES[selected_drug]["forms"].keys())
             selected_form = st.selectbox("Select Dosage Form / Strength", available_forms)
 
@@ -993,6 +1051,7 @@ def main():
                     st.session_state.latest_dosing = {
                         "mode": f"{selected_drug} Guideline Dosing",
                         "parameters": {
+                            "Category": selected_category,
                             "Medication": selected_drug,
                             "Indication": selected_diagnosis,
                             "Dosage Form": selected_form,
